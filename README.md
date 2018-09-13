@@ -10,3 +10,5 @@ OOP Major Project - Airport Management System
 //Am I doing this right ?
 
 //Yep. This is the basic idea anyway. Eventually we'll include all of our separate files and stuff and we can all see and edit them from here
+
+//We can also break away from the base code by creating a branch and working in here. This way the master code copy doesn't need to be messed with while we are working on it
