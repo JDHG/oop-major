@@ -6,3 +6,5 @@ OOP Major Project - Airport Management System
 //Make sure you understand when to use branches and when to commit to the master repo
 
 //Note the 'Commit Changes' section underneath gives you options. And always make sure to include a relevant description of anything you're adding or have changed.
+
+//Am I doing this right ?
