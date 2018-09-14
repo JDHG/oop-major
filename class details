@@ -1,0 +1,24 @@
+Airport system Major Project
+
+Classes we might use:
+
+- Airport
+
+- Person (abstract Parent)
+	children:
+	- pilot
+	- coPilot
+	- passengers
+	- onBoardStaff (stewardess/etc.)
+	- maintenanceStaff (maybe)
+	- ground staff (maybe)
+
+- Plane (abstract Parent)
+	children:
+	- B747 (Boeing 747 Model)
+	- B777 (Boeing 777 Model)
+	- A320 (Airbus A320 Model)
+
+- Luggage (Parent) //not abstract because we could use luggage in general as additional weight or something
+	- checkedLuggage
+	- carryOnLuggage
