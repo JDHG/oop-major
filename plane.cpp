@@ -6,8 +6,10 @@
 
 using namespace std;
 
+//static member declarations
 int Plane::creationID = 0;
-string * Plane::takenIDs = new string[10]; //testing only. rather use vectors
+int Plane::IDcount = 0;
+vector<string> Plane::takenIDs;
 
 Plane::Plane()
 {
@@ -24,25 +26,21 @@ Plane::Plane()
 	destination = "No destination currently assigned.";
 }
 
-//virtual bool canFly() = 0;
-
 //checks if ID has already been used
-//if not, assigns it to plane and stores ID in array
+//if not, assigns it to plane and stores ID in static vector
 //if it has, assignment is denied
 void Plane::setID(string newID)
 {
-	int i;
-	for (i = 0; i < creationID; i++)
+	for (int i = 0; i < IDcount; i++)
 	{	
-		//update to use vectors instead of arrays
 		if (newID == takenIDs[i])
 		{
 			cout << "This ID is taken. You must enter a unique ID." << endl;
 			return;
 		}
 	}
-	//Plane::takenIDs.push_back(newID);
-	takenIDs[creationID-1] = newID;
+	takenIDs.push_back(newID);
+	IDcount++;
 	planeID = newID;
 	hasID = true;
 	cout << "test setID - has executed." << endl;
@@ -71,6 +69,10 @@ void Plane::setDest(string newDestination)
 void Plane::removeDest()
 {
 	destination = "No destination currently assigned.";
+}
+string Plane::getID()
+{
+	return planeID;
 }
 /*
 void Plane::refuel()

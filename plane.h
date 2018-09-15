@@ -6,9 +6,9 @@
 
 class Plane
 {
-	static int creationID;
-	//static std::vector<std::string> takenIDs;
-	static std::string * takenIDs; //testing only. rather use vectors
+	static int creationID; //keeps track of how many planes have been created
+	static int IDcount; //tracks how many planeIDs have been created
+	static std::vector<std::string> takenIDs; //stores ID's that have already been assigned to planes
 
 protected:
 	bool hasPilot;
@@ -23,8 +23,7 @@ protected:
 	int totalPassengers;
 	int planeNumber;
 
-
-	//planeID is different from creation ID - gets an ID with child class maybe?
+	//planeID is different from creation ID
 	std::string planeID;
 	//std::string origin;
 	std::string destination;
@@ -32,7 +31,8 @@ protected:
 public:
 	Plane();
 	
-	virtual void canFly() = 0;
+	virtual bool canFly() = 0;
+	virtual void refuel() = 0;
 
 	void setID(std::string newID);
 	//void setPilot();
@@ -40,7 +40,7 @@ public:
 	void setDest(std::string newDestination);
 	void removeDest();
 	
-	//void refuel; might make this virtual
+	std::string getID();
 
 	~Plane();
 };
