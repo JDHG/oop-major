@@ -1,11 +1,11 @@
 #include "pilot.h"
 #include "person.h"
 
-pilot::pilot() {
+pilot::pilot() { //child constructor needs to call parent constructor aswell - Jason
 	IDNumber = 0;
 	assignedPlane = false;
 }
-pilot::pilot(int IDNumber) {
+pilot::pilot(int IDNumber) { //child constructor needs to call parent constructor aswell - Jason
 	IDNumber = IDNumber;
 	assignedPlane = false;
 }
