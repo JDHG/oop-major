@@ -15,7 +15,7 @@ public:
 	//Setters
 	void set_name(std::string newName);
 	void set_weight(int newWeight);
-	void set_destination(std::string newDesination);
+	void set_destination(std::string newDestination);
 	
 	//Getters
 	std::string get_name();
