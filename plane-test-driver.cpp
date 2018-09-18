@@ -14,6 +14,7 @@ int main ()
 	B747 plane2;
 
 	plane1.canFly();
+	plane2.canFly(); //random edit
 
 	plane1.setID("A123");
 	plane2.setID("A123");
