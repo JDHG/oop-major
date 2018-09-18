@@ -7,7 +7,7 @@ class B747 : public Plane
 {
 	//carries up to 364 passengers in 3 separate classes
 	int firstClassSeats;
-	int	businessClassSeats;
+	int businessClassSeats;
 	int economyClassSeats;
 
 	int fuelCapacity;
@@ -19,12 +19,12 @@ public:
 	B747();
 
 	//virtual function definitions
-	bool canFly();
+	bool can_fly();
 	void refuel();
 
-	bool fuelCheck();
-	bool pilotCheck();
-	bool weightCheck();
+	bool fuel_check();
+	bool pilot_check();
+	bool weight_check();
 
 	~B747();
 
