@@ -1,32 +1,29 @@
 #include "plane.h"
-#include "b747.h"
+#include "a320.h"
 
 #include <iostream>
 
 using namespace std;
 
-B747::B747() : Plane()
+A320::A320()
 {
-	firstClassSeats = 58;
-	businessClassSeats = 36;
-	economyClassSeats = 270;
-
-	fuelCapacity = 193280;
+	seats = 164;
+	fuelCapacity = 27000;
 	fuel = 1000;
 	onBoardWeight = 0; //this number needs to increase and decrease with all persons/luggage changes
-	maxPayload = 76067; //plane cannot fly if onBoard weight exceeds this value
+	maxPayload = 19958;
 }
 
-void B747::refuel()
+void A320::refuel()
 {
 	fuel = fuelCapacity;
 }
 
-bool B747::can_fly() //checks and prints status of all relevant preflight checks
+bool A320::can_fly() //checks and prints status of all relevant preflight checks
 {
 	if (!hasID)
 	{
-		cout << "This plane must be assigned an ID before checks can be done." << endl;
+		cout << endl << "This plane must be assigned an ID before checks can be done." << endl << endl;
 		return false;
 	}
 
@@ -66,10 +63,9 @@ bool B747::can_fly() //checks and prints status of all relevant preflight checks
 		return true;
 	}
 	return false;
-	//return true; //TESTING ONLY
 }
 
-bool B747::fuel_check()
+bool A320::fuel_check()
 {
 	if (fuel < (fuelCapacity - fuelCapacity/10))
 	{
@@ -79,7 +75,7 @@ bool B747::fuel_check()
 	return true;
 }
 
-bool B747::pilot_check()
+bool A320::pilot_check()
 {
 	if (!hasPilot || !hasCoPilot)
 	{
@@ -89,7 +85,7 @@ bool B747::pilot_check()
 	return true;
 }
 
-bool B747::weight_check()
+bool A320::weight_check()
 {
 	if (onBoardWeight > maxPayload)
 	{
@@ -99,7 +95,7 @@ bool B747::weight_check()
 	return true;
 }
 
-B747::~B747()
+A320::~A320()
 {
 
 }

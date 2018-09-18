@@ -1,14 +1,12 @@
-#ifndef B747_H
-#define B747_H
+#ifndef A320_H
+#define A320_H
 
 #include "plane.h"
 
-class B747 : public Plane
+class A320 : public Plane
 {
-	//carries up to 364 passengers in 3 separate classes
-	int firstClassSeats;
-	int businessClassSeats;
-	int economyClassSeats;
+	//carries up to 162 passengers in 1 class
+	int seats;
 
 	int fuelCapacity;
 	int fuel;
@@ -16,7 +14,7 @@ class B747 : public Plane
 	int maxPayload;
 
 public:
-	B747();
+	A320();
 
 	//virtual function definitions
 	bool can_fly();
@@ -27,6 +25,6 @@ public:
 	bool pilot_check();
 	bool weight_check();
 
-	~B747();
+	~A320();
 };
 #endif

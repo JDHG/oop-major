@@ -1,6 +1,7 @@
 #ifndef PLANE_H
 #define PLANE_H
 
+//#include "pilot.h"
 #include <string>
 #include <vector>
 
@@ -31,11 +32,12 @@ public:
 	
 	virtual bool can_fly() = 0;
 	virtual void refuel() = 0;
+	//virtual void print_details() = 0;
 
 	void set_id(std::string newID);
 	void set_location(std::string newLocation);
-	//void setPilot();
-	//void setCoPilot();
+	//void set_pilot(Pilot * newPilot);
+	//void set_copilot(Pilot * newCoPilot);
 
 	std::string get_location();
 	std::string get_id();

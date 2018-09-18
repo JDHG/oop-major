@@ -1,4 +1,6 @@
 #include "plane.h"
+//#include "person.h"
+//#include "pilot.h"
 
 #include <string>
 #include <iostream>
@@ -7,7 +9,7 @@
 using namespace std;
 
 //static member declarations
-int Plane::creationID = 0; //number of planes thgat exist
+int Plane::creationID = 0; //number of planes that exist
 int Plane::IDcount = 0; //number of ID's that exist
 vector<string> Plane::takenIDs; //ID's that have been used
 
@@ -25,10 +27,7 @@ Plane::Plane()
 	location = "No location currently assigned.";
 }
 
-//checks if ID has already been used
-//if not, assigns it to plane and stores ID in static vector
-//if it has, assignment is denied
-void Plane::set_id(string newID)
+void Plane::set_id(string newID) //sets ID only if ID is unique from all previous ID's
 {
 	for (int i = 0; i < IDcount; i++)
 	{	
@@ -38,18 +37,31 @@ void Plane::set_id(string newID)
 			return;
 		}
 	}
-	takenIDs.push_back(newID);
+	takenIDs.push_back(newID); //stores ID so it can't be used again
 	IDcount++;
 	planeID = newID;
 	hasID = true;
 	cout << "test setID - has executed." << endl;
-	return;
 }
 
 void Plane::set_location(string newLocation)
 {
 	location = newLocation;
 }
+
+/*
+void Plane::set_pilot(Pilot * newPilot) //pilot objects must have a bool to notify if they are available for assignment
+{
+	pilot = newPilot;
+	hasPilot = true;
+}
+
+void Plane::set_copilot(Pilot * newCoPilot) //pilot objects must have a bool to notify if they are available for assignment
+{
+	coPilot = newCoPilot;
+	hasCoPilot = true;
+}
+*/
 
 string Plane::get_location()
 {
