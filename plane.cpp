@@ -7,9 +7,9 @@
 using namespace std;
 
 //static member declarations
-int Plane::creationID = 0;
-int Plane::IDcount = 0;
-vector<string> Plane::takenIDs;
+int Plane::creationID = 0; //number of planes thgat exist
+int Plane::IDcount = 0; //number of ID's that exist
+vector<string> Plane::takenIDs; //ID's that have been used
 
 Plane::Plane()
 {
@@ -22,14 +22,13 @@ Plane::Plane()
 	hasID = false;
 
 	planeID = "No ID assigned yet.";
-	//origin? current location? airport.getLocation()?
-	destination = "No destination currently assigned.";
+	location = "No location currently assigned.";
 }
 
 //checks if ID has already been used
 //if not, assigns it to plane and stores ID in static vector
 //if it has, assignment is denied
-void Plane::setID(string newID)
+void Plane::set_id(string newID)
 {
 	for (int i = 0; i < IDcount; i++)
 	{	
@@ -47,39 +46,21 @@ void Plane::setID(string newID)
 	return;
 }
 
-/* need person/pilot classes
+void Plane::set_location(string newLocation)
+{
+	location = newLocation;
+}
 
-void Plane::setPilot(pilot newPilot)
+string Plane::get_location()
 {
-	pilot = newPilot;
-	hasPilot = true;
-	//anyway to unassign pilots?
+	return location;
 }
-void Plane::setCoPilot(pilot newCoPilot)
-{
-	coPilot = newCoPilot;
-	hasCoPilot = true;
-}
-*/
 
-void Plane::setDest(string newDestination)
-{
-	destination = newDestination;
-}
-void Plane::removeDest()
-{
-	destination = "No destination currently assigned.";
-}
-string Plane::getID()
+string Plane::get_id()
 {
 	return planeID;
 }
-/*
-void Plane::refuel()
-{
 
-}
-*/
 Plane::~Plane()
 {
 
