@@ -6,7 +6,7 @@
 #include "plane.h"
 
 
-class airport
+class Airport
 {
 
 	int maxPlanes;
@@ -17,7 +17,7 @@ class airport
 
 public:
 
-	airport(std::string loc, int maxP);
+	Airport(std::string loc, int maxP);
 
 	//getters
 	int get_max_planes();
@@ -27,10 +27,10 @@ public:
 
 
 
-	bool departure(Plane* depPlane, airport * destAirport); //removes departing plane from planesOnSite array.
+	bool departure(Plane* depPlane, Airport * destAirport); //removes departing plane from planesOnSite array.
 	void add_plane(Plane* newPlane);
 
-	~airport();
+	~Airport();
 };
 
 #endif
