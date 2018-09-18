@@ -5,8 +5,6 @@
 
 using namespace std;
 
-//test edit
-
 A320::A320()
 {
 	seats = 164;
