@@ -13,18 +13,19 @@ int main ()
 	B747 plane1;
 	B747 plane2;
 
-	plane1.canFly();
-	plane2.canFly(); //random edit
+	plane1.can_fly();
 
-	plane1.setID("A123");
-	plane2.setID("A123");
-	plane2.setID("B321");
+	plane1.set_id("A123");
+	plane2.set_id("A123");
+	plane2.set_id("B321");
 
-	plane1.canFly();
+	cout << plane1.get_location() << endl;
+
+	plane1.can_fly();
 
 	plane1.refuel();
 
-	plane1.canFly();
+	plane1.can_fly();
 
 	return 0;
 }
