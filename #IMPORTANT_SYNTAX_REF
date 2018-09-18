@@ -1,0 +1,28 @@
+ALL SYNTAX STANDARDS ARE AS FOLLOWS:
+
+FUNCTIONS:
+  Function signatures will have ALL LOWERCASE LETTERING and underscores inbetween words.
+
+eg:
+    void get_id();
+    string get_location();
+    int set_new_height();
+    
+    
+CLASS NAMES:
+  Class names MUST have a capital letter first and be only one word.
+  
+eg:
+    Plane
+    Airport
+    
+    
+FILE NAMES:
+  All filenames will be LOWERCASE ONLY.
+  
+eg:
+    person.h
+    b747.h
+    plane.cpp
+    
+Please update any files that do not have this syntax
