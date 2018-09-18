@@ -7,7 +7,6 @@ using namespace std;
 
 B747::B747() : Plane()
 {
-	//364 total seats
 	firstClassSeats = 58;
 	businessClassSeats = 36;
 	economyClassSeats = 270;
@@ -25,7 +24,7 @@ void B747::refuel()
 }
 
 //checks and prints status of all relevant preflight checks
-bool B747::canFly()
+bool B747::can_fly()
 {
 	if (!hasID)
 	{
@@ -33,17 +32,17 @@ bool B747::canFly()
 		return false;
 	}
 
-	bool FC,PC,WC;
+	bool FC,PC,WC; //assigns values based on check function results
 
 	cout << "Pre-Flight status of Plane ID: " << planeID << ":" << endl;
 
-	FC = fuelCheck();
+	FC = fuel_check();
 	if(!FC)
 	{
 		cout << "*** Failed fuel check." << endl << "    Refueling required." << endl;
 	}
 
-	PC = pilotCheck();
+	PC = pilot_check();
 	if(!PC)
 	{
 		cout << "*** Failed pilot check." << endl;
@@ -57,15 +56,12 @@ bool B747::canFly()
 		}
 	}
 
-	WC = weightCheck();
+	WC = weight_check();
 	if(!WC)
 	{
 		cout << "*** Failed weight check." << endl << "    Weight Limit exceeded by "
 			<< (onBoardWeight - maxPayload) << "kg." << endl;
 	}
-	cout << "passengers: " << totalPassengers << endl
-		<< "plane number: " << planeNumber << endl
-		<< "destination: " << destination << endl << endl;
 
 	if (FC && PC && WC)
 	{
@@ -73,9 +69,10 @@ bool B747::canFly()
 		return true;
 	}
 	return false;
+	//return true; //TESTING ONLY
 }
 
-bool B747::fuelCheck()
+bool B747::fuel_check()
 {
 	if (fuel < (fuelCapacity - fuelCapacity/10))
 	{
@@ -85,7 +82,7 @@ bool B747::fuelCheck()
 	return true;
 }
 
-bool B747::pilotCheck()
+bool B747::pilot_check()
 {
 	if (!hasPilot || !hasCoPilot)
 	{
@@ -95,7 +92,7 @@ bool B747::pilotCheck()
 	return true;
 }
 
-bool B747::weightCheck()
+bool B747::weight_check()
 {
 	if (onBoardWeight > maxPayload)
 	{
