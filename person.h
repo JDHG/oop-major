@@ -3,14 +3,14 @@
 
 #include <string>
 
-class person {
+class Person {
 	std::string name;
 	int weight;
 	std::string destination;
 
 public:
-	person();
-	person(std::string name, int weight, std::string destination);
+	Person();
+	Person(std::string newName, int newWeight, std::string newDestination);
 
 	//Setters
 	void set_name(std::string newName);

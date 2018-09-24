@@ -1,26 +1,32 @@
 #include "pilot.h"
 #include "person.h"
 
-pilot::pilot() { //child constructor needs to call parent constructor aswell - Jason
-	IDNumber = 0;
+int Pilot::nPilots = 0;
+
+Pilot::Pilot() : Person()
+{
+	nPilots++;
+	IDNumber = nPilots;
 	assignedPlane = false;
 }
-pilot::pilot(int IDNumber) { //child constructor needs to call parent constructor aswell - Jason
-	IDNumber = IDNumber;
+Pilot::Pilot(std::string newName, int newWeight, std::string newDestination) : Person(newName, newWeight, newDestination)
+{
+	nPilots++;
+	IDNumber = nPilots;
 	assignedPlane = false;
 }
 
 //Setters
-void pilot::set_IDNumber(int newIDNumber) {
+void Pilot::set_id_number(int newIDNumber) {
 	IDNumber = newIDNumber;
 }
-void pilot::set_assignedPlane() {
+void Pilot::set_assigned_plane() {
 	assignedPlane = !assignedPlane;
 }
 //Getters
-int pilot::get_IDNumber() {
+int Pilot::get_id_number() {
 	return IDNumber;
 }
-bool pilot::get_assignedPlane() {
+bool Pilot::get_assigned_plane() {
 	return assignedPlane;
 }
