@@ -1,6 +1,6 @@
 #include "plane.h"
 //#include "person.h"
-//#include "pilot.h"
+#include "pilot.h"
 
 #include <string>
 #include <iostream>
@@ -41,7 +41,7 @@ void Plane::set_id(string newID) //sets ID only if ID is unique from all previou
 	IDcount++;
 	planeID = newID;
 	hasID = true;
-	cout << "test setID - has executed." << endl;
+	//cout << "test setID - has executed." << endl;
 }
 
 void Plane::set_location(string newLocation)
@@ -49,19 +49,24 @@ void Plane::set_location(string newLocation)
 	location = newLocation;
 }
 
-/*
+
 void Plane::set_pilot(Pilot * newPilot) //pilot objects must have a bool to notify if they are available for assignment
 {
-	pilot = newPilot;
-	hasPilot = true;
+	if(!newPilot->get_assigned_plane())
+	{
+		pilot = newPilot;
+		hasPilot = true;
+	}
 }
 
 void Plane::set_copilot(Pilot * newCoPilot) //pilot objects must have a bool to notify if they are available for assignment
 {
-	coPilot = newCoPilot;
-	hasCoPilot = true;
+	if(!newCoPilot->get_assigned_plane())
+	{
+		coPilot = newCoPilot;
+		hasCoPilot = true;
+	}
 }
-*/
 
 string Plane::get_location()
 {

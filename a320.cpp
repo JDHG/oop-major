@@ -7,6 +7,7 @@ using namespace std;
 
 A320::A320()
 {
+	model = "Airbus 320";
 	seats = 164;
 	fuelCapacity = 27000;
 	fuel = 1000;
@@ -63,6 +64,25 @@ bool A320::can_fly() //checks and prints status of all relevant preflight checks
 		return true;
 	}
 	return false;
+}
+
+void A320::print_details()
+{
+	cout << "Details of Plane ID: " << get_id() << endl
+		<< "Model: " << model << endl
+		<< "Passengers on-board: " << "-/" << seats << endl //update when passengers can be added
+		<< "Fuel: " << fuel << "/" << fuelCapacity << " Litres" << endl
+		<< "Allowable on-board weight: " << onBoardWeight << "/" << maxPayload << endl;
+	if(hasPilot)
+	{
+		cout 
+		<< "Pilot: " << pilot->get_name() << "  ID number: " << pilot->get_id_number() << endl;
+	}
+	if(hasCoPilot)
+	{
+		cout
+		<< "Co-Pilot: " << coPilot->get_name() << "  ID number: " << coPilot->get_id_number() << endl;
+	}
 }
 
 bool A320::fuel_check()

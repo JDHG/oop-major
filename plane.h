@@ -1,7 +1,7 @@
 #ifndef PLANE_H
 #define PLANE_H
 
-//#include "pilot.h"
+#include "pilot.h"
 #include <string>
 #include <vector>
 
@@ -22,8 +22,8 @@ protected:
 	std::string planeID; //planeID is different from creation ID
 	std::string location;
 
-	//Pilot * pilot;
-	//Pilot * coPilot;
+	Pilot * pilot;
+	Pilot * coPilot;
 	//Staff ** staff;
 	//Passenger ** passengersOnBoard;
 
@@ -32,12 +32,12 @@ public:
 	
 	virtual bool can_fly() = 0;
 	virtual void refuel() = 0;
-	//virtual void print_details() = 0;
+	virtual void print_details() = 0;
 
 	void set_id(std::string newID);
 	void set_location(std::string newLocation);
-	//void set_pilot(Pilot * newPilot);
-	//void set_copilot(Pilot * newCoPilot);
+	void set_pilot(Pilot * newPilot);
+	void set_copilot(Pilot * newCoPilot);
 
 	std::string get_location();
 	std::string get_id();

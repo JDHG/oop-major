@@ -20,16 +20,30 @@ int main ()
 	plane2.set_id("B123");
 	plane2.set_id("A555");
 
+	/*
 	cout << plane1.get_location() << endl;
 	plane1.set_location("Canadia");
 	cout << plane1.get_location() << endl;
+	*/
 
 	plane1.can_fly(); //fail fuel and pilot checks
+	
+	plane1.print_details();
 
 	plane1.refuel();
 
 	plane1.can_fly(); //fail pilot checks only
-	plane2.can_fly();
+	//plane2.can_fly();
+
+	Pilot * abe = new Pilot("Abe",80,"removeDestinations");
+	Pilot * bill = new Pilot("Bill",95,"removeDestinations");
+
+	plane1.set_pilot(abe);
+	plane1.set_copilot(bill);
+
+	plane1.print_details();
+
+	plane1.can_fly();
 
 	return 0;
 }
