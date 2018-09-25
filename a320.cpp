@@ -115,6 +115,11 @@ bool A320::weight_check()
 	return true;
 }
 
+string A320::get_model()
+{
+	return model;
+}
+
 A320::~A320()
 {
 

@@ -118,6 +118,11 @@ bool B747::weight_check()
 	return true;
 }
 
+string B747::get_model()
+{
+	return model;
+}
+
 B747::~B747()
 {
 

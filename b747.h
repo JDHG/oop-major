@@ -29,6 +29,8 @@ public:
 	bool pilot_check();
 	bool weight_check();
 
+	std::string get_model();
+
 	~B747();
 };
 #endif

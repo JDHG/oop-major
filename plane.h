@@ -33,6 +33,7 @@ public:
 	virtual bool can_fly() = 0;
 	virtual void refuel() = 0;
 	virtual void print_details() = 0;
+	virtual std::string get_model() = 0;
 
 	void set_id(std::string newID);
 	void set_location(std::string newLocation);
