@@ -10,8 +10,10 @@ using namespace std;
 
 //functions for creating menus in main program
 
+//airport menus
 void build_airport_menu(vector<Airport*> all_airports)
 {
+	//dynamic menu. changes size with number of elements
 	cout << endl << "Select Airport: (enter number)" << endl;
 	for (int i = 0; i < all_airports.size(); i++)
 	{
@@ -19,8 +21,22 @@ void build_airport_menu(vector<Airport*> all_airports)
 	}
 }
 
+void build_airport_sub_menu(Airport* selection)
+{
+	//static menu. same for all elements
+	cout << endl << selection->get_location() << ": (enter a number)" << endl;
+	cout << "1   depart plane" << endl
+		 << "2   add new plane" << endl
+		 << "3   list planes" << endl
+		 << "4   check max planes" << endl;
+
+}
+
+
+//plane menus
 void build_plane_menu(vector<Plane*> all_planes)
 {
+	//dynamic menu. changes size with number of elements
 	cout << endl << "Select Plane: (enter number)" << endl;
 	for (int i = 0; i < all_planes.size(); i++)
 	{
@@ -29,8 +45,12 @@ void build_plane_menu(vector<Plane*> all_planes)
 	}
 }
 
+
+
+//pilot menus
 void build_pilot_menu(vector<Pilot*> all_pilots)
 {
+	//dynamic menu. changes size with number of elements
 	cout << endl << "Select Pilot: (enter number)" << endl;
 	for (int i = 0; i < all_pilots.size(); i++)
 	{
