@@ -15,6 +15,7 @@ protected:
 	bool hasPilot;
 	bool hasCoPilot;
 	bool hasID;
+	bool hasLocation;
 
 	int totalPassengers;
 	int planeNumber;
@@ -37,6 +38,7 @@ public:
 
 	void set_id(std::string newID);
 	void set_location(std::string newLocation);
+	void remove_location();
 	void set_pilot(Pilot * newPilot);
 	void set_copilot(Pilot * newCoPilot);
 

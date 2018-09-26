@@ -1,7 +1,7 @@
 /*
 function checks menu selection input of a menu of n_options choices.
 returns an index of (input-1) if input is valid.
-If user input selection 1, this would be element 0 of the choices. hence return input -1.
+eg. If user input '3', this would be element 2 of the choices in the menu (array of choices). hence return 3-1.
 returns -1 if input is invalid (no corresponding element).
 
 used to pass user selections between menus.
@@ -9,6 +9,8 @@ used to pass user selections between menus.
 
 int select_option(int input, int n_options)
 {
+	if (input == 99) {return input;} //used for special menu selections not in array/vector options
+
 	int values[n_options];
 
 	//fill array

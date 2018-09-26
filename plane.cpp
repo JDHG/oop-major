@@ -22,6 +22,7 @@ Plane::Plane()
 	hasPilot = false;
 	hasCoPilot = false;
 	hasID = false;
+	hasLocation = false;
 
 	planeID = "No ID assigned yet.";
 	location = "No location currently assigned.";
@@ -47,8 +48,13 @@ void Plane::set_id(string newID) //sets ID only if ID is unique from all previou
 void Plane::set_location(string newLocation)
 {
 	location = newLocation;
+	hasLocation = true;
 }
 
+void Plane::remove_location()
+{
+	hasLocation = false;
+}
 
 void Plane::set_pilot(Pilot * newPilot) //pilot objects must have a bool to notify if they are available for assignment
 {

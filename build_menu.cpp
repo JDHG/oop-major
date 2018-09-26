@@ -19,17 +19,17 @@ void build_airport_menu(vector<Airport*> all_airports)
 	{
 		cout << i+1 << "   " << all_airports[i]->get_location() << endl;
 	}
+	cout << endl << "99  create new airport" << endl << endl;
 }
 
 void build_airport_sub_menu(Airport* selection)
 {
 	//static menu. same for all elements
-	cout << endl << selection->get_location() << ": (enter a number)" << endl;
+	cout << endl << selection->get_location() << ": (enter number)" << endl;
 	cout << "1   depart plane" << endl
 		 << "2   add new plane" << endl
-		 << "3   list planes" << endl
-		 << "4   check max planes" << endl;
-
+		 << "3   list planes" << endl;
+	cout << endl << "99   delete this airport" << endl << endl;
 }
 
 

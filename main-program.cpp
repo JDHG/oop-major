@@ -16,6 +16,7 @@ void clear_failed_input(bool); //this function must follow every cin >> statemen
 
 //externally defined functions
 extern int select_option(int,int);
+extern bool delete_airport(vector<Airport*>,int);
 extern void build_airport_menu(vector<Airport*>);
 extern void build_airport_sub_menu(Airport*);
 extern void build_plane_menu(vector<Plane*>);
@@ -57,6 +58,8 @@ int main ()
 
 	//program loop input variables
 	int input = 0;
+	int subChoice = 0;
+	int storedIndex = 0; //use to keep an vector/array index if required
 
 	cout << endl << "*** Welcome to Plane Sim v0.001 ***" << endl << endl;
 
@@ -81,10 +84,45 @@ int main ()
 					clear_failed_input(cin.fail());
 					if (input != BACK_INT)
 					{
-						int subChoice = select_option(input, ALL_AIRPORTS.size());
-						if (subChoice >= 0)
+						subChoice = select_option(input, ALL_AIRPORTS.size());
+
+						if (subChoice >= 0 && subChoice < 99)
 						{
+							//chosen airport options menu
 							build_airport_sub_menu(ALL_AIRPORTS[subChoice]);
+							storedIndex = subChoice;
+							while (input != BACK_INT)
+							{
+								cout << "enter " << BACK_INT << " to go back" << endl;
+								cin >> input;
+								clear_failed_input(cin.fail());
+								if (input != BACK_INT)
+								{
+									subChoice = select_option(input, 3); //3 current options from airport sub menu (99 option doesnt count)
+									if (subChoice >= 0 && subChoice < 99)
+									{
+										//do stuff from option 1, 2 or 3
+									}
+									if (subChoice == 99)
+									{
+										if(delete_airport(ALL_AIRPORTS, storedIndex))
+										{
+											cout << "deleted airport successfully" << endl;
+										}
+									}
+								}
+							}
+						}
+						//create new airport menu
+						if (subChoice == 99)
+						{
+							cout << "ENTERED 99 new airport menu" << endl;
+							/*
+							build_add_plane_menu();
+							cout << "enter " << BACK_INT << " to go back" << endl;
+							cin >> input;
+							clear_failed_input(cin.fail());
+							*/
 						}
 						if (subChoice == -1)
 						{
