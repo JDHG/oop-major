@@ -12,7 +12,7 @@ using namespace std;
 
 //functions defined in main-program
 void build_home_menu();
-void clear_failed_input(bool); //this function must follow every cin >> statement;
+int get_input();
 
 //externally defined functions
 extern int select_option(int,int);
@@ -68,8 +68,7 @@ int main ()
 	{
 		//home menu
 		build_home_menu();
-		cin >> input;
-		clear_failed_input(cin.fail());
+		input = get_input();
 
 		switch (input)
 		{
@@ -80,8 +79,7 @@ int main ()
 				{
 					build_airport_menu(ALL_AIRPORTS);
 					cout << "enter " << BACK_INT << " to go back" << endl;
-					cin >> input;
-					clear_failed_input(cin.fail());
+					input = get_input();
 					if (input != BACK_INT)
 					{
 						subChoice = select_option(input, ALL_AIRPORTS.size());
@@ -94,8 +92,7 @@ int main ()
 							while (input != BACK_INT)
 							{
 								cout << "enter " << BACK_INT << " to go back" << endl;
-								cin >> input;
-								clear_failed_input(cin.fail());
+								input = get_input();
 								if (input != BACK_INT)
 								{
 									subChoice = select_option(input, 3); //3 current options from airport sub menu (99 option doesnt count)
@@ -120,8 +117,7 @@ int main ()
 							/*
 							build_add_plane_menu();
 							cout << "enter " << BACK_INT << " to go back" << endl;
-							cin >> input;
-							clear_failed_input(cin.fail());
+							input = get_input();
 							*/
 						}
 						if (subChoice == -1)
@@ -140,8 +136,7 @@ int main ()
 				{
 					build_plane_menu(ALL_PLANES);
 					cout << "enter " << BACK_INT << " to go back" << endl;
-					cin >> input;
-					clear_failed_input(cin.fail());
+					input = get_input();
 				}
 				break;
 			}
@@ -152,7 +147,7 @@ int main ()
 				{
 					build_pilot_menu(ALL_PILOTS);
 					cout << "enter " << BACK_INT << " to go back" << endl;
-					cin >> input;
+					input = get_input();
 				}
 				break;
 			}
@@ -175,13 +170,16 @@ void build_home_menu()
 		<< "enter " << QUIT_INT << " to quit" << endl;
 }
 
-//function prevents infinite loop from invalid input. ONLY pass cin.fail() as argument
-void clear_failed_input(bool cinStatus)
+int get_input() //used for all menu input
 {
-	if (cinStatus)
+	int input;
+	cin >> input;
+	if (cin.fail()) //prevent infinite loops from invalid input
 	{
 		cin.clear();
 		cin.ignore(INT_MAX, '\n');
-		cout << "***invalid non-integer input***" << endl;
+		cout << "***failed get_input() checks***" << endl;
+		return -1;
 	}
+	return input;
 }

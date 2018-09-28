@@ -22,11 +22,12 @@ protected:
 
 	std::string planeID; //planeID is different from creation ID
 	std::string location;
+	//std::string destination;
 
 	Pilot * pilot;
 	Pilot * coPilot;
 	//Staff ** staff;
-	//Passenger ** passengersOnBoard;
+	//Passenger ** passengersOnBoard; //make vector
 
 public:
 	Plane();
@@ -38,9 +39,11 @@ public:
 
 	void set_id(std::string newID);
 	void set_location(std::string newLocation);
+	//void set_destination(std::string newDestination);
 	void remove_location();
 	void set_pilot(Pilot * newPilot);
 	void set_copilot(Pilot * newCoPilot);
+
 
 	std::string get_location();
 	std::string get_id();
