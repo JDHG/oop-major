@@ -15,14 +15,15 @@ protected:
 	bool hasPilot;
 	bool hasCoPilot;
 	bool hasID;
-	bool hasLocation;
+	bool hasLocation; //check these two in can_fly() ?
+	bool hasDestination;
 
 	int totalPassengers;
 	int planeNumber;
 
 	std::string planeID; //planeID is different from creation ID
 	std::string location;
-	//std::string destination;
+	std::string destination;
 
 	Pilot * pilot;
 	Pilot * coPilot;
@@ -31,6 +32,7 @@ protected:
 
 public:
 	Plane();
+	Plane(std::string newLocation, std::string newDestination);
 	
 	virtual bool can_fly() = 0;
 	virtual void refuel() = 0;
@@ -39,13 +41,14 @@ public:
 
 	void set_id(std::string newID);
 	void set_location(std::string newLocation);
-	//void set_destination(std::string newDestination);
+	void set_destination(std::string newDestination);
 	void remove_location();
 	void set_pilot(Pilot * newPilot);
 	void set_copilot(Pilot * newCoPilot);
 
 
 	std::string get_location();
+	std::string get_destination();
 	std::string get_id();
 
 	~Plane();

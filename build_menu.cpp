@@ -41,13 +41,21 @@ void build_plane_menu(vector<Plane*> all_planes)
 	for (int i = 0; i < all_planes.size(); i++)
 	{
 		cout << i+1 << "   " << all_planes[i]->get_model()
-			<< "    " << all_planes[i]->get_id() << endl;
+			<< "    " << all_planes[i]->get_id()
+			<< "    " << all_planes[i]->get_location()
+			<< "    " << all_planes[i]->get_destination()
+			<< endl;
 			//display current location and destination in here too
-			//sub menu of a plane selected will be: add available passengers, or remove passengers, or delete plane
+			//sub menu of a plane selected will be: set plane ID, add available passengers, remove passengers, or delete plane
 	}
 }
 
+/*
+void build_plane_sub_menu(Plane* selection)
+{
 
+}
+*/
 
 //pilot menus
 void build_pilot_menu(vector<Pilot*> all_pilots)

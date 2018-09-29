@@ -23,9 +23,28 @@ Plane::Plane()
 	hasCoPilot = false;
 	hasID = false;
 	hasLocation = false;
+	hasDestination = false;
 
 	planeID = "No ID assigned yet.";
 	location = "No location currently assigned.";
+	destination = "No destination currently assigned";
+}
+
+Plane::Plane(std::string newLocation, std::string newDestination)
+{
+	creationID++;
+	planeNumber = creationID;
+
+	totalPassengers = 0;
+	hasPilot = false;
+	hasCoPilot = false;
+	hasID = false;
+	hasLocation = true;
+	hasDestination = true;
+
+	planeID = "No ID assigned yet.";
+	location = newLocation;
+	destination = newDestination;
 }
 
 void Plane::set_id(string newID) //sets ID only if ID is unique from all previous ID's
@@ -77,6 +96,11 @@ void Plane::set_copilot(Pilot * newCoPilot) //pilot objects must have a bool to 
 string Plane::get_location()
 {
 	return location;
+}
+
+string Plane::get_destination()
+{
+	return destination;
 }
 
 string Plane::get_id()
