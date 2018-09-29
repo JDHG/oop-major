@@ -5,7 +5,17 @@
 
 using namespace std;
 
-A320::A320()
+A320::A320() : Plane()
+{
+	model = "Airbus 320";
+	seats = 164;
+	fuelCapacity = 27000;
+	fuel = 1000;
+	onBoardWeight = 0; //this number needs to increase and decrease with all persons/luggage changes
+	maxPayload = 19958;
+}
+
+A320::A320(std::string newLocation, std::string newDestination) : Plane(newLocation, newDestination)
 {
 	model = "Airbus 320";
 	seats = 164;

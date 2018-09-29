@@ -19,6 +19,7 @@ class B747 : public Plane
 
 public:
 	B747();
+	B747(std::string newLocation, std::string newDestination);
 
 	//virtual function definitions
 	bool can_fly();

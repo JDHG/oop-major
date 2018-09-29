@@ -38,14 +38,12 @@ int main ()
 
 	//plane declarations
 	vector<Plane*> ALL_PLANES; //every plane created must be added to this vector
-	B747 * alpha = new B747();
-	A320 * beta = new A320();
+	B747 * alpha = new B747("Adelaide","Tokyo");
+	A320 * beta = new A320("Tokyo","Adelaide");
 	ALL_PLANES.push_back(alpha);
 	ALL_PLANES.push_back(beta);
 
 	//pilot declarations
-		//might be wise to remove 'destination' state from pilot class
-		//seems unnecessary if Planes track this
 	vector<Pilot*> ALL_PILOTS; //every pilot created must be added to this vector
 	Pilot * dave = new Pilot("Dave", 80, "Adelaide");
 	Pilot * steve = new Pilot("Steve", 100, "Adelaide");
@@ -104,7 +102,7 @@ int main ()
 									{
 										if(delete_airport(ALL_AIRPORTS, storedIndex))
 										{
-											cout << "deleted airport successfully" << endl;
+											//cout << "deleted airport successfully" << endl;
 										}
 									}
 								}
@@ -170,7 +168,7 @@ void build_home_menu()
 		<< "enter " << QUIT_INT << " to quit" << endl;
 }
 
-int get_input() //used for all menu input
+int get_input() //used for all user input
 {
 	int input;
 	cin >> input;
