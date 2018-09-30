@@ -93,6 +93,11 @@ void Plane::set_copilot(Pilot * newCoPilot) //pilot objects must have a bool to 
 	}
 }
 
+bool Plane::check_id()
+{
+	return hasID;
+}
+
 string Plane::get_location()
 {
 	return location;

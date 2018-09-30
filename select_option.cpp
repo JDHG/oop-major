@@ -1,10 +1,12 @@
+#include <iostream>
+using namespace std;
 /*
 function checks menu selection input of a menu of n_options choices.
 returns an index of (input-1) if input is valid.
-eg. If user input '3', this would be element 2 of the choices in the menu (array of choices). hence return 3-1.
+eg. If user input '3', this would be element 2 of the choices in the menu (array of choices). hence return (3-1) = 2.
 returns -1 if input is invalid (no corresponding element).
 
-used to pass user selections between menus.
+used to avoid invalid menu selections from dynamic menus
 */
 
 int select_option(int input, int n_options)
@@ -29,5 +31,6 @@ int select_option(int input, int n_options)
 	}
 
 	//if input is not found in array
+	cout << "***failed select_option() checks***" << endl;
 	return -1;
 }

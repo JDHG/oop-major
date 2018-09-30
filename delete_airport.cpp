@@ -8,6 +8,7 @@ using namespace std;
 //does not currently work
 //airport remains in vector after function executes
 
+//must remove location from any planes
 bool delete_airport(vector<Airport*> all_airports, int vectorIndex)
 {
 	vector<Plane*> planes = all_airports[vectorIndex]->get_list_planes();
