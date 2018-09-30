@@ -93,6 +93,7 @@ int main ()
 									if (subChoice >= 0 && subChoice < 99)
 									{
 										//do stuff from option 1, 2 or 3
+										cout << "ENTERED 1/2/3 option" << endl;
 									}
 									if (subChoice == 99)
 									{
@@ -107,7 +108,7 @@ int main ()
 						{
 							cout << "ENTERED 99 new airport menu" << endl;
 							/*
-							build_add_plane_menu();
+							build_add_airport_menu();
 							input = get_sub_input();
 							*/
 						}
@@ -131,7 +132,30 @@ int main ()
 							{
 								build_plane_sub_menu(ALL_PLANES[storedIndex]);
 								input = get_sub_input();
+								if (input != BACK_INT && input != FAIL_INT)
+								{
+									subChoice = select_option(input, 3); //3 options in plane_sub_menu
+									if (subChoice >= 0 && subChoice < 99)
+									{
+										//do stuff from option 1, 2 or 3
+										cout << "ENTERED 1/2/3 option" << endl;
+									}
+									if (subChoice == 99)
+									{
+										cout << "ENTERED 99 delete plane" << endl;
+										//delete airport from vector
+										subChoice = 0;
+									}
+								}
 							}
+						}
+						if (subChoice == 99) //create new plane menu
+						{
+							cout << "ENTERED 99 new plane menu" << endl;
+							/*
+							build_add_plane_menu();
+							input = get_sub_input();
+							*/
 						}
 					}
 				}
@@ -143,6 +167,41 @@ int main ()
 				{
 					build_pilot_menu(ALL_PILOTS);
 					input = get_sub_input();
+					if (input != BACK_INT && input != FAIL_INT)
+					{
+						subChoice = select_option(input, ALL_PILOTS.size());
+						if (subChoice >= 0 && subChoice < 99) //chosen pilot options menu
+						{
+							storedIndex = subChoice;
+							while (input != BACK_INT)
+							{
+								//build_pilot_sub_menu(ALL_PILOTS[storedIndex]);
+								input = get_sub_input();
+								if (input != BACK_INT && input != FAIL_INT)
+								{
+									/*
+									subChoice = select_option(input, x); //x options in pilot_sub_menu
+									if (subChoice >= 0 && subChoice < 99)
+									{
+										//do stuff from option 1, 2 or 3
+										cout << "ENTERED 1/2/3 option" << endl;
+									}
+									*/
+									if (subChoice == 99)
+									{
+										cout << "ENTERED 99 delete pilot" << endl;
+										//delete airport from vector
+										subChoice = 0;
+									}
+								}
+							}
+						}
+						if (subChoice == 99)
+						{
+							cout << "ENTERED 99 new pilot menu" << endl;
+							//build_add_pilot_menu();
+						}
+					}
 				}
 				break;
 			}
