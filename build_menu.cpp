@@ -54,7 +54,7 @@ void build_plane_menu(vector<Plane*> all_planes)
 void build_plane_sub_menu(Plane* selection)
 {
 	//if plane doesn't have an ID yet then one must be set
-	if (!selection->check_id())
+	while (!selection->check_id())
 	{
 		cout << "Enter a new ID for this plane: ";
 		string newID;
