@@ -19,6 +19,20 @@ B747::B747() : Plane()
 	maxPayload = 76067; //plane cannot fly if onBoard weight exceeds this value
 }
 
+B747::B747(std::string newLocation, std::string newDestination) : Plane(newLocation, newDestination)
+{
+	model = "Boeing 747";
+
+	firstClassSeats = 58;
+	businessClassSeats = 36;
+	economyClassSeats = 270;
+
+	fuelCapacity = 193280;
+	fuel = 1000;
+	onBoardWeight = 0; //this number needs to increase and decrease with all persons/luggage changes
+	maxPayload = 76067; //plane cannot fly if onBoard weight exceeds this value
+}
+
 void B747::refuel()
 {
 	fuel = fuelCapacity;

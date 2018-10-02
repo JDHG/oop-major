@@ -16,6 +16,7 @@ class A320 : public Plane
 
 public:
 	A320();
+	A320(std::string newLocation, std::string newDestination);
 
 	//virtual function definitions
 	bool can_fly();

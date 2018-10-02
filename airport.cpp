@@ -10,7 +10,6 @@ using namespace std;
 
 Airport::Airport(string loc, int maxP)
 {
-
 	location = loc;
 	maxPlanes = maxP;
 	planesGrounded = 0;

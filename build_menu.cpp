@@ -51,6 +51,7 @@ void build_plane_menu(vector<Plane*> all_planes)
 	cout << endl << "99   *create new plane" << endl << endl;
 }
 
+
 void build_plane_sub_menu(Plane* selection)
 {
 	//if plane doesn't have an ID yet then one must be set
