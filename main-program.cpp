@@ -94,6 +94,19 @@ int main ()
 									{
 										//do stuff from option 1, 2 or 3
 										cout << "ENTERED 1/2/3 option" << endl;
+										cout << subChoice << endl;
+
+										/*
+										switch (subChoice)
+										{
+											case 1: //depart_plane()
+											{
+												build_depart_plane_menu(); //make this next
+												ALL_AIRPORTS[storedIndex].departure(fdsgjsdfkvjsebrvldf);
+											}
+										}
+										*/
+										
 									}
 									if (subChoice == 99)
 									{
