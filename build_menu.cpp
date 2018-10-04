@@ -32,6 +32,25 @@ void build_airport_sub_menu(Airport* selection)
 	cout << endl << "99   *delete this airport" << endl << endl;
 }
 
+void build_departure_menu_1(vector<Plane*> planesAtLocation)
+{
+	//dynamic menu. changes size with number of elements
+	cout << endl << "Select Plane to depart: (enter number)" << endl;
+	for (int i = 0; i < planesAtLocation.size(); i++)
+	{
+		cout << i+1 << "    " << planesAtLocation[i]->get_id() << endl;
+	}
+	cout << endl;
+}
+void build_departure_menu_2(vector<Airport*> destinationList)
+{
+	cout << endl << "Select Destination: (enter number)" << endl;
+	for (int i = 0; i < destinationList.size(); i++)
+	{
+		cout << i+1 << "    " << destinationList[i]->get_location() << endl;
+	}
+	cout << endl;
+}
 
 //plane menus
 void build_plane_menu(vector<Plane*> all_planes)
@@ -50,7 +69,6 @@ void build_plane_menu(vector<Plane*> all_planes)
 	}
 	cout << endl << "99   *create new plane" << endl << endl;
 }
-
 
 void build_plane_sub_menu(Plane* selection)
 {

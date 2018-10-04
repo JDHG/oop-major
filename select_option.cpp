@@ -11,7 +11,8 @@ used to avoid invalid menu selections from dynamic menus
 
 int select_option(int input, int n_options)
 {
-	if (input == 99) {return input;} //used for special menu selections not in array/vector options
+	if (input == 99) {return 99;} //used for special menu selections not in array/vector options
+	//if (input == 0) {return 0;}
 
 	int values[n_options];
 

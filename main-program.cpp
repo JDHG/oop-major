@@ -20,12 +20,14 @@ extern int select_option(int,int);
 //extern bool delete_airport(vector<Airport*>,int); //rethink this functionality
 extern void build_airport_menu(vector<Airport*>);
 extern void build_airport_sub_menu(Airport*);
+extern void build_departure_menu_1(vector<Plane*>);
+extern void build_departure_menu_2(vector<Airport*>);
 extern void build_plane_menu(vector<Plane*>);
 extern void build_plane_sub_menu(Plane*);
 extern void build_pilot_menu(vector<Pilot*>);
 
 //global variables
-const int BACK_INT = 0; //used to go back from sub menus
+const int BACK_INT = -9; //used to go back from sub menus
 const int FAIL_INT = -1; //used if input functions fail
 const int QUIT_INT = -2; //used by home menu to quit program
 
@@ -45,6 +47,8 @@ int main ()
 	A320 * beta = new A320("Tokyo","Adelaide");
 	ALL_PLANES.push_back(alpha);
 	ALL_PLANES.push_back(beta);
+	adelaide->add_plane(alpha);
+	tokyo->add_plane(beta);
 
 	//pilot declarations
 	vector<Pilot*> ALL_PILOTS; //every pilot created must be added to this vector
@@ -72,7 +76,7 @@ int main ()
 		switch (input)
 		{
 			case 1: //airport managing sub-menu
-			{
+			{cout << endl;
 				while (input != BACK_INT)
 				{
 					build_airport_menu(ALL_AIRPORTS);
@@ -92,21 +96,29 @@ int main ()
 									subChoice = select_option(input, 3); //3 current options from airport sub menu (99 option doesn't count)
 									if (subChoice >= 0 && subChoice < 99)
 									{
-										//do stuff from option 1, 2 or 3
 										cout << "ENTERED 1/2/3 option" << endl;
-										cout << subChoice << endl;
-
-										/*
 										switch (subChoice)
 										{
-											case 1: //depart_plane()
+											case 0: //departure menus
 											{
-												build_depart_plane_menu(); //make this next
-												ALL_AIRPORTS[storedIndex].departure(fdsgjsdfkvjsebrvldf);
+												 //gets planes at current airport
+												build_departure_menu_1(ALL_AIRPORTS[storedIndex]->get_list_planes());
+												input = select_option(get_sub_input(), ALL_AIRPORTS[storedIndex]->get_list_planes().size()); //input for choosing a plane to depart
+												cout << "input = " << input << endl;
+												if (input != BACK_INT && input != FAIL_INT)
+												{
+													int departPlaneIndex = input; //index of which plane is to leave current airport
+													build_departure_menu_2(ALL_AIRPORTS);
+													input = select_option(get_sub_input(), ALL_AIRPORTS.size());
+													if (input != BACK_INT && input != FAIL_INT)
+													{
+														int destAirportIndex = input;
+														ALL_AIRPORTS[storedIndex]->departure(ALL_AIRPORTS[storedIndex]->get_list_planes()[departPlaneIndex], ALL_AIRPORTS[destAirportIndex], departPlaneIndex);
+														cout << "plane left succesfully?... maybe" << endl;
+													}
+												}		
 											}
 										}
-										*/
-										
 									}
 									if (subChoice == 99)
 									{
