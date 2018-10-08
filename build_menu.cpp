@@ -52,6 +52,18 @@ void build_departure_menu_2(vector<Airport*> destinationList)
 	cout << endl;
 }
 
+void build_add_plane_to_airport_menu(vector<Plane*> all_planes)
+{
+	cout << endl << "Select plane to add: (enter number)" << endl;
+	for (int i = 0; i < all_planes.size(); i++)
+	{
+		cout << i+1 << "    " << all_planes[i]->get_id()
+			 << "    LOCATION: " << all_planes[i]->get_location()
+			 << endl;
+	}
+	cout << endl;
+}
+
 //plane menus
 void build_plane_menu(vector<Plane*> all_planes)
 {

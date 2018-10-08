@@ -47,6 +47,7 @@ public:
 	void set_copilot(Pilot * newCoPilot);
 
 	bool check_id();
+	bool check_location();
 
 	std::string get_location();
 	std::string get_destination();

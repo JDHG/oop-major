@@ -16,14 +16,16 @@ int get_home_input(); //get home menu input
 int get_sub_input(); //get sub menu input
 A320* new_a320();
 B747* new_b747();
+Airport* new_airport();
+Pilot* new_pilot();
 
 //externally defined functions
 extern int select_option(int,int);
-//extern bool delete_airport(vector<Airport*>,int); //rethink this functionality
 extern void build_airport_menu(vector<Airport*>);
 extern void build_airport_sub_menu(Airport*);
 extern void build_departure_menu_1(vector<Plane*>);
 extern void build_departure_menu_2(vector<Airport*>);
+extern void build_add_plane_to_airport_menu(vector<Plane*>);
 extern void build_plane_menu(vector<Plane*>);
 extern void build_plane_sub_menu(Plane*);
 extern void build_add_plane_menu();
@@ -36,50 +38,27 @@ const int QUIT_INT = -2; //used by home menu to quit program
 
 int main ()
 {
-	//airport declarations
 	vector<Airport*> ALL_AIRPORTS; //every airport created must be added to this vector
-	int MAX_PLANES = 3; //all airports have the same max planes just for the moment
-	Airport * adelaide = new Airport("Adelaide",MAX_PLANES);
-	Airport * tokyo = new Airport("Tokyo", MAX_PLANES);
-	ALL_AIRPORTS.push_back(adelaide);
-	ALL_AIRPORTS.push_back(tokyo);
-
-	//plane declarations
 	vector<Plane*> ALL_PLANES; //every plane created must be added to this vector
-	B747 * alpha = new B747("Adelaide","Tokyo"); //planes should get location from airports
-	A320 * beta = new A320("Tokyo","Adelaide");
-	ALL_PLANES.push_back(alpha);
-	ALL_PLANES.push_back(beta);
-	adelaide->add_plane(alpha);
-	tokyo->add_plane(beta);
-
-	//pilot declarations
 	vector<Pilot*> ALL_PILOTS; //every pilot created must be added to this vector
-	Pilot * dave = new Pilot("Dave", 80, "Adelaide"); //pilots should get location from airports
-	Pilot * steve = new Pilot("Steve", 100, "Adelaide");
-	Pilot * laura = new Pilot("Laura", 65, "Tokyo");
-	Pilot * amy = new Pilot("Amy", 70, "Tokyo");
-	ALL_PILOTS.push_back(dave);
-	ALL_PILOTS.push_back(steve);
-	ALL_PILOTS.push_back(laura);
-	ALL_PILOTS.push_back(amy);
 
 	//program loop input variables
 	int input = 0; //stores user input throughout menus
 	int subChoice = 0; //used exclusively with select_option() NEVER INDEX WITH THIS! USE storedIndex!
 	int storedIndex = 0; //used (if needed) to keep a vector/array index returned by "subChoice = select_option(ALL_OBJECTS, ALL_OBJECTS.size())""
 
-	cout << endl << "*** Welcome to Plane Sim v0.001 ***" << endl << endl;
 
+	cout << endl << "*** Welcome to Plane Sim v0.001 ***" << endl << endl;
 	//main program loop
-	while (input != -2)
+	while (input != QUIT_INT)
 	{
 		build_home_menu();
 		input = get_home_input();
 		switch (input)
 		{
 			case 1: //airport managing sub-menu
-			{cout << endl;
+			{
+				cout << endl;
 				while (input != BACK_INT)
 				{
 					build_airport_menu(ALL_AIRPORTS);
@@ -120,27 +99,34 @@ int main ()
 														//departed plane needs new location set
 														//cout << "plane left succesfully?... maybe" << endl;
 													}
-												}		
+												}
+												break;	
+											}
+											case 1: //add plane to airport menu
+											{
+												//list all planes without a location
+												build_add_plane_to_airport_menu(ALL_PLANES);
+												input = select_option(get_sub_input(), ALL_PLANES.size());
+												if (input != BACK_INT && input != FAIL_INT)
+												{
+													ALL_AIRPORTS[storedIndex]->add_plane(ALL_PLANES[input]);
+												}
+												break;
 											}
 										}
 									}
-									if (subChoice == 99)
+									if (subChoice == 99) //delete airport
 									{
-										cout << "ENTERED 99 delete airport" << endl;
-										//delete airport from vector
-										subChoice = 0;
+										cout << ALL_AIRPORTS[storedIndex]->get_location() << " airport deleted." << endl;
+										delete ALL_AIRPORTS[storedIndex];
+										ALL_AIRPORTS.erase(ALL_AIRPORTS.begin() + storedIndex);
+										subChoice = BACK_INT;
+										input = BACK_INT;
 									}
 								}
 							}
 						}
-						if (subChoice == 99) //create new airport menu
-						{
-							cout << "ENTERED 99 new airport menu" << endl;
-							/*
-							build_add_airport_menu();
-							input = get_sub_input();
-							*/
-						}
+						if (subChoice == 99) {ALL_AIRPORTS.push_back(new_airport());}
 					}
 				}
 				break;
@@ -169,11 +155,13 @@ int main ()
 										//do stuff from option 1, 2 or 3
 										cout << "ENTERED 1/2/3 option" << endl;
 									}
-									if (subChoice == 99)
+									if (subChoice == 99) //delete plane
 									{
-										cout << "ENTERED 99 delete plane" << endl;
-										//delete airport from vector
-										subChoice = 0;
+										cout << "Plane "<< ALL_PLANES[storedIndex]->get_id() << " deleted." << endl;
+										delete ALL_PLANES[storedIndex];
+										ALL_PLANES.erase(ALL_PLANES.begin() + storedIndex);
+										subChoice = BACK_INT;
+										input = BACK_INT;
 									}
 								}
 							}
@@ -186,18 +174,9 @@ int main ()
 							{
 								switch (input)
 								{
-									case 0: //new a320
-									{
-										ALL_PLANES.push_back(new_a320());
-										break;
-									}
-									case 1:	//new b747
-									{
-										ALL_PLANES.push_back(new_b747());
-										break;
-									}
-									default:
-									{cout << "*** ADD PLANE SWITCH DEFAULT" << endl;}
+									case 0:{ALL_PLANES.push_back(new_a320()); break;}
+									case 1:{ALL_PLANES.push_back(new_b747()); break;}
+									default:{cout << "*** ADD PLANE FAILED" << endl;}
 								}
 							}
 						}
@@ -231,26 +210,24 @@ int main ()
 										cout << "ENTERED 1/2/3 option" << endl;
 									}
 									*/
-									if (subChoice == 99)
+									if (subChoice == 99) //delete pilot
 									{
-										cout << "ENTERED 99 delete pilot" << endl;
-										//delete airport from vector
-										subChoice = 0;
+										cout << ALL_PILOTS[storedIndex]->get_name() << " has been fired." << endl;
+										delete ALL_PILOTS[storedIndex];
+										ALL_PILOTS.erase(ALL_PILOTS.begin() + storedIndex);
+										subChoice = BACK_INT;
+										input = BACK_INT;
 									}
 								}
 							}
 						}
-						if (subChoice == 99)
-						{
-							cout << "ENTERED 99 new pilot menu" << endl;
-							//build_add_pilot_menu();
-						}
+					if (subChoice == 99){ALL_PILOTS.push_back(new_pilot());}
 					}
-				}
 				break;
-			}
+				}
 			default: {cout << "***invalid input***" << endl; break;}
 			case -2: {cout << "QUIT PROGRAM" << endl; break;}
+			}
 		}
 	}
 	return 0;
@@ -297,6 +274,7 @@ int get_sub_input() //used for all user input
 	return input;
 }
 
+//mid-program object creation functions
 A320* new_a320()
 {
 	A320 * newPlane = new A320();
@@ -306,4 +284,34 @@ B747* new_b747()
 {
 	B747 * newPlane = new B747();
 	return newPlane;
+}
+Airport* new_airport()
+{
+	string newLocation;
+	int newMax = 3; //airports may not need max_planes for sake of simplicity
+	cout << "Enter new airport's location: ";
+	cin >> newLocation;
+	Airport * newAirport = new Airport(newLocation, newMax);
+	return newAirport;
+}
+Pilot* new_pilot()
+{
+	string newName;
+	int newWeight;
+	string atAirport; //this should be assigned by airports
+	cout << "Enter pilot's name: ";
+	cin >> newName;
+	cout << "Enter weight: ";
+	cin >> newWeight;
+	while(cin.fail())
+	{
+		cin.clear();
+		cin.ignore(INT_MAX, '\n');
+		cout << "Enter valid integer weight: ";
+		cin >> newWeight;
+	}
+	cout << "Enter airport: (this functionality will be removed)";
+	cin >> atAirport;
+	Pilot * newPilot = new Pilot(newName, newWeight, atAirport);
+	return newPilot;
 }
