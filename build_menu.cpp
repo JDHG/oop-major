@@ -91,6 +91,13 @@ void build_plane_sub_menu(Plane* selection)
 	}
 }
 
+void build_add_plane_menu()
+{
+	cout << "Choose plane type: " << endl
+		 << "1    A320" << endl
+		 << "2    B747" << endl;
+}
+
 
 //pilot menus
 void build_pilot_menu(vector<Pilot*> all_pilots)

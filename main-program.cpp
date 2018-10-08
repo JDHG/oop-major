@@ -14,6 +14,8 @@ using namespace std;
 void build_home_menu();
 int get_home_input(); //get home menu input
 int get_sub_input(); //get sub menu input
+A320* new_a320();
+B747* new_b747();
 
 //externally defined functions
 extern int select_option(int,int);
@@ -24,6 +26,7 @@ extern void build_departure_menu_1(vector<Plane*>);
 extern void build_departure_menu_2(vector<Airport*>);
 extern void build_plane_menu(vector<Plane*>);
 extern void build_plane_sub_menu(Plane*);
+extern void build_add_plane_menu();
 extern void build_pilot_menu(vector<Pilot*>);
 
 //global variables
@@ -114,7 +117,8 @@ int main ()
 													{
 														int destAirportIndex = input;
 														ALL_AIRPORTS[storedIndex]->departure(ALL_AIRPORTS[storedIndex]->get_list_planes()[departPlaneIndex], ALL_AIRPORTS[destAirportIndex], departPlaneIndex);
-														cout << "plane left succesfully?... maybe" << endl;
+														//departed plane needs new location set
+														//cout << "plane left succesfully?... maybe" << endl;
 													}
 												}		
 											}
@@ -176,11 +180,26 @@ int main ()
 						}
 						if (subChoice == 99) //create new plane menu
 						{
-							cout << "ENTERED 99 new plane menu" << endl;
-							/*
 							build_add_plane_menu();
-							input = get_sub_input();
-							*/
+							input = select_option(get_sub_input(),2); //2 plane options
+							if (input != BACK_INT && input != FAIL_INT)
+							{
+								switch (input)
+								{
+									case 0: //new a320
+									{
+										ALL_PLANES.push_back(new_a320());
+										break;
+									}
+									case 1:	//new b747
+									{
+										ALL_PLANES.push_back(new_b747());
+										break;
+									}
+									default:
+									{cout << "*** ADD PLANE SWITCH DEFAULT" << endl;}
+								}
+							}
 						}
 					}
 				}
@@ -276,4 +295,15 @@ int get_sub_input() //used for all user input
 		return -1;
 	}
 	return input;
+}
+
+A320* new_a320()
+{
+	A320 * newPlane = new A320();
+	return newPlane;
+}
+B747* new_b747()
+{
+	B747 * newPlane = new B747();
+	return newPlane;
 }
