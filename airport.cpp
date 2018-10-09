@@ -9,18 +9,12 @@ using namespace std;
 
 //another test edit
 
-Airport::Airport(string loc, int maxP)
+Airport::Airport(string loc)
 {
 	location = loc;
-	maxPlanes = maxP;
 }
 
-	//getters
-int Airport::get_max_planes()
-{
-	return maxPlanes;
-}
-	
+	//getters	
 string Airport::get_location()
 {
 	return location;
@@ -29,6 +23,14 @@ string Airport::get_location()
 vector<Plane*> Airport::get_list_planes()
 {
 	return planesOnSite;
+}
+
+void Airport::list_planes()
+{
+	cout << location << endl;
+	for (int i = 0; i < planesOnSite.size(); i++){
+		cout << planesOnSite[i]->get_id() << endl;
+	}
 }
 
 //removes departing plane from planesOnSite array.
