@@ -345,10 +345,9 @@ B747* new_b747()
 Airport* new_airport()
 {
 	string newLocation;
-	int newMax = 3; //airports may not need max_planes for sake of simplicity
 	cout << HEADER << "Enter new airport's location: ";
 	cin >> newLocation;
-	Airport * newAirport = new Airport(newLocation, newMax);
+	Airport * newAirport = new Airport(newLocation);
 	return newAirport;
 }
 Pilot* new_pilot()
