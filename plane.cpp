@@ -97,6 +97,10 @@ bool Plane::check_id()
 {
 	return hasID;
 }
+bool Plane::check_location()
+{
+	return hasLocation;
+}
 
 string Plane::get_location()
 {
