@@ -80,7 +80,7 @@ void build_plane_menu(vector<Plane*> all_planes)
 			<< endl;
 			//sub menu of a plane selected will be: set plane ID, add available passengers, remove passengers, or delete plane
 	}
-	cout << endl << "99   *create new plane" << endl << endl;
+	cout << endl << "99   create new plane" << endl << endl;
 }
 
 void build_plane_sub_menu(Plane* selection)
@@ -158,6 +158,6 @@ void build_pilot_menu(vector<Pilot*> all_pilots)
 void build_pilot_sub_menu(Pilot* selection)
 {
 	cout << endl << MENU_HEADER << selection->get_name() << ": (enter number)" << endl;
-	cout << "1   *change name" << endl;
+	cout << "1   change name" << endl;
 	cout << endl << "99   fire this pilot" << endl << endl;	
 }

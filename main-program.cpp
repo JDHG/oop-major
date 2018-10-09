@@ -89,10 +89,9 @@ int main ()
 										{
 											case 0: //departure menus
 											{
-												 //gets planes at current airport
+												//gets planes at current airport
 												build_departure_menu_1(ALL_AIRPORTS[storedIndex]->get_list_planes());
 												input = select_option(get_sub_input(), ALL_AIRPORTS[storedIndex]->get_list_planes().size()); //input for choosing a plane to depart
-												cout << "input = " << input << endl;
 												if (input != BACK_INT && input != FAIL_INT)
 												{
 													int departPlaneIndex = input; //index of which plane is to leave current airport
@@ -118,6 +117,7 @@ int main ()
 											}
 											case 2: //list planes
 											{
+												cout << "*** LIST PLANES AT THIS AIRPORT" << endl;
 												break;
 											}
 										}
@@ -164,7 +164,7 @@ int main ()
 											case 0:
 											{
 												//change id
-												cout << "Enter new ID: " << endl;
+												cout << HEADER << "Enter new ID: " << endl;
 												cin >> strinput;
 												ALL_PLANES[storedIndex]->set_id(strinput);
 												break;
@@ -256,7 +256,9 @@ int main ()
 									subChoice = select_option(input, 1); //1 options in pilot_sub_menu
 									if (subChoice >= 0 && subChoice < 99)
 									{
-										cout << "ENTERED OPTION 1" << endl;
+										cout << HEADER << "Enter new name: " << endl;
+										cin >> strinput;
+										ALL_PILOTS[storedIndex]->set_name(strinput);
 									}
 										
 									if (subChoice == 99) //delete pilot
