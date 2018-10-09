@@ -9,7 +9,7 @@ Pilot::Pilot() : Person()
 	IDNumber = nPilots;
 	assignedPlane = false;
 }
-Pilot::Pilot(std::string newName, int newWeight, std::string newDestination) : Person(newName, newWeight, newDestination)
+Pilot::Pilot(string newName) : Person(string newName)
 {
 	nPilots++;
 	IDNumber = nPilots;

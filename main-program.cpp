@@ -1,5 +1,6 @@
 #include "airport.h"
 #include "person.h"
+#include "passenger.h"
 #include "pilot.h"
 #include "plane.h"
 #include "b747.h"
@@ -63,6 +64,11 @@ int main ()
 	ALL_PILOTS.push_back(steve);
 	ALL_PILOTS.push_back(laura);
 	ALL_PILOTS.push_back(amy);
+
+	//passenger declarations
+	vector<Passenger *> ALL_PASSENGERS;
+	Passeneger * shaun = new Passeneger("Shaun",63,"Adelaide");
+	ALL_PASSENGERS.push_back(shaun);
 
 	//program loop input variables
 	int input = 0; //stores user input throughout menus
