@@ -113,6 +113,10 @@ int main ()
 												}
 												break;
 											}
+											case 2: //list planes
+											{
+												break;
+											}
 										}
 									}
 									if (subChoice == 99) //delete airport
