@@ -31,30 +31,31 @@ extern void build_plane_menu(vector<Plane*>);
 extern void build_plane_sub_menu(Plane*);
 extern void build_add_plane_menu();
 extern void build_pilot_menu(vector<Pilot*>);
+extern void build_pilot_sub_menu(Pilot*);
+extern void build_set_pilot_menu(vector<Pilot*>);
+extern void build_set_copilot_menu(vector<Pilot*>);
 
 //global variables
 const int BACK_INT = -9; //used to go back from sub menus
 const int FAIL_INT = -1; //used if input functions fail
 const int QUIT_INT = -2; //used by home menu to quit program
+string HEADER = "#####  ";
 
 int main ()
 {
 	vector<Airport*> ALL_AIRPORTS; //every airport created must be added to this vector
 	vector<Plane*> ALL_PLANES; //every plane created must be added to this vector
 	vector<Pilot*> ALL_PILOTS; //every pilot created must be added to this vector
-
-	//passenger declarations
-	vector<Passenger *> ALL_PASSENGERS;
-	Passeneger * shaun = new Passeneger("Shaun",63,"Adelaide");
-	ALL_PASSENGERS.push_back(shaun);
+	vector<Passenger*> ALL_PASSENGERS;
 
 	//program loop input variables
+	string strinput; //used for user string input
 	int input = 0; //stores user input throughout menus
 	int subChoice = 0; //used exclusively with select_option() NEVER INDEX WITH THIS! USE storedIndex!
 	int storedIndex = 0; //used (if needed) to keep a vector/array index returned by "subChoice = select_option(ALL_OBJECTS, ALL_OBJECTS.size())""
 
 
-	cout << endl << "*** Welcome to Plane Sim v0.001 ***" << endl << endl;
+	cout << endl << "*** Welcome to Plane Sim v0.1 ***" << endl << endl;
 	//main program loop
 	while (input != QUIT_INT)
 	{
@@ -84,15 +85,13 @@ int main ()
 									subChoice = select_option(input, 3); //3 current options from airport sub menu (99 option doesn't count)
 									if (subChoice >= 0 && subChoice < 99)
 									{
-										cout << "ENTERED 1/2/3 option" << endl;
 										switch (subChoice)
 										{
 											case 0: //departure menus
 											{
-												 //gets planes at current airport
+												//gets planes at current airport
 												build_departure_menu_1(ALL_AIRPORTS[storedIndex]->get_list_planes());
 												input = select_option(get_sub_input(), ALL_AIRPORTS[storedIndex]->get_list_planes().size()); //input for choosing a plane to depart
-												cout << "input = " << input << endl;
 												if (input != BACK_INT && input != FAIL_INT)
 												{
 													int departPlaneIndex = input; //index of which plane is to leave current airport
@@ -102,16 +101,13 @@ int main ()
 													{
 														int destAirportIndex = input;
 														ALL_AIRPORTS[storedIndex]->departure(ALL_AIRPORTS[storedIndex]->get_list_planes()[departPlaneIndex], ALL_AIRPORTS[destAirportIndex], departPlaneIndex);
-														//departed plane needs new location set
-														//cout << "plane left succesfully?... maybe" << endl;
 													}
 												}
 												break;	
 											}
 											case 1: //add plane to airport menu
 											{
-												//list all planes without a location
-												build_add_plane_to_airport_menu(ALL_PLANES);
+												build_add_plane_to_airport_menu(ALL_PLANES); //list true/false availability like pilots
 												input = select_option(get_sub_input(), ALL_PLANES.size());
 												if (input != BACK_INT && input != FAIL_INT)
 												{
@@ -121,6 +117,7 @@ int main ()
 											}
 											case 2: //list planes
 											{
+												cout << "*** LIST PLANES AT THIS AIRPORT" << endl;
 												break;
 											}
 										}
@@ -159,11 +156,55 @@ int main ()
 								input = get_sub_input();
 								if (input != BACK_INT && input != FAIL_INT)
 								{
-									subChoice = select_option(input, 3); //3 options in plane_sub_menu
+									subChoice = select_option(input, 5); //5 options in plane_sub_menu
 									if (subChoice >= 0 && subChoice < 99)
 									{
-										//do stuff from option 1, 2 or 3
-										cout << "ENTERED 1/2/3 option" << endl;
+										switch (subChoice)
+										{
+											case 0:
+											{
+												//change id
+												cout << HEADER << "Enter new ID: " << endl;
+												cin >> strinput;
+												ALL_PLANES[storedIndex]->set_id(strinput);
+												break;
+											}
+											case 1:
+											{
+												//add passengers
+												cout << "*** CANT ADD PASSENGERS YET" << endl;
+												break;
+											}
+											case 2:
+											{
+												//add pilot
+												build_set_pilot_menu(ALL_PILOTS);
+												input = select_option(get_sub_input(), ALL_PILOTS.size());
+												if (input != BACK_INT && input != FAIL_INT)
+												{
+													ALL_PLANES[storedIndex]->set_pilot(ALL_PILOTS[input]);
+												}
+												break;
+											}
+											case 3:
+											{
+												//add co pilot
+												build_set_copilot_menu(ALL_PILOTS);
+												input = select_option(get_sub_input(), ALL_PILOTS.size());
+												if (input != BACK_INT && input != FAIL_INT)
+												{
+													ALL_PLANES[storedIndex]->set_copilot(ALL_PILOTS[input]);
+												}
+												break;
+											}
+											case 4:
+											{
+												//refuel
+												ALL_PLANES[storedIndex]->refuel();
+												cout << "Plane refueled." << endl;
+												break;
+											}
+										}
 									}
 									if (subChoice == 99) //delete plane
 									{
@@ -208,18 +249,18 @@ int main ()
 							storedIndex = subChoice;
 							while (input != BACK_INT)
 							{
-								//build_pilot_sub_menu(ALL_PILOTS[storedIndex]);
+								build_pilot_sub_menu(ALL_PILOTS[storedIndex]);
 								input = get_sub_input();
 								if (input != BACK_INT && input != FAIL_INT)
 								{
-									/*
-									subChoice = select_option(input, x); //x options in pilot_sub_menu
+									subChoice = select_option(input, 1); //1 options in pilot_sub_menu
 									if (subChoice >= 0 && subChoice < 99)
 									{
-										//do stuff from option 1, 2 or 3
-										cout << "ENTERED 1/2/3 option" << endl;
+										cout << HEADER << "Enter new name: " << endl;
+										cin >> strinput;
+										ALL_PILOTS[storedIndex]->set_name(strinput);
 									}
-									*/
+										
 									if (subChoice == 99) //delete pilot
 									{
 										cout << ALL_PILOTS[storedIndex]->get_name() << " has been fired." << endl;
@@ -233,11 +274,16 @@ int main ()
 						}
 					if (subChoice == 99){ALL_PILOTS.push_back(new_pilot());}
 					}
-				break;
 				}
-			default: {cout << "***invalid input***" << endl; break;}
-			case -2: {cout << "QUIT PROGRAM" << endl; break;}
+				break;
 			}
+			case 4: //passenger menu
+			{
+				//build_passenger_menu(ALL_PASSENGERS);
+				break;
+			}
+			//default: {cout << "***invalid input***" << endl; break;}
+			case -2: {cout << "QUIT PROGRAM" << endl; break;}
 		}
 	}
 	return 0;
@@ -246,23 +292,24 @@ int main ()
 //prints home menu as defined
 void build_home_menu()
 {
-	cout << endl << "What do you want to manage? (enter number)" << endl
+	cout << endl << HEADER << "What do you want to manage? (enter number)" << endl
 		<< "1   airports" << endl
 		<< "2   planes" << endl
 		<< "3   pilots" << endl
+		//<< "4   passengers" << endl
 		<< "enter " << QUIT_INT << " to quit" << endl;
 }
 
 int get_home_input() //used for all user input
 {
-	cout << "*** get_home_input() " << endl;
+	//cout << "*** get_home_input() " << endl;
 	int input;
 	cin >> input;
 	if (cin.fail()) //prevent infinite loops from invalid input
 	{
 		cin.clear();
 		cin.ignore(INT_MAX, '\n');
-		cout << "***failed get_home_input() checks***" << endl;
+		//cout << "***failed get_home_input() checks***" << endl;
 		return -1;
 	}
 	return input;
@@ -270,7 +317,7 @@ int get_home_input() //used for all user input
 
 int get_sub_input() //used for all user input
 {
-	cout << "*** get_sub_input() " << endl;
+	//cout << "*** get_sub_input() " << endl;
 	cout << "enter " << BACK_INT << " to go back" << endl;
 	int input;
 	cin >> input;
@@ -278,7 +325,7 @@ int get_sub_input() //used for all user input
 	{
 		cin.clear();
 		cin.ignore(INT_MAX, '\n');
-		cout << "***failed get_sub_input() checks***" << endl;
+		//cout << "***failed get_sub_input() checks***" << endl;
 		return -1;
 	}
 	return input;
@@ -299,7 +346,7 @@ Airport* new_airport()
 {
 	string newLocation;
 	int newMax = 3; //airports may not need max_planes for sake of simplicity
-	cout << "Enter new airport's location: ";
+	cout << HEADER << "Enter new airport's location: ";
 	cin >> newLocation;
 	Airport * newAirport = new Airport(newLocation, newMax);
 	return newAirport;
@@ -307,21 +354,18 @@ Airport* new_airport()
 Pilot* new_pilot()
 {
 	string newName;
-	int newWeight;
-	string atAirport; //this should be assigned by airports
-	cout << "Enter pilot's name: ";
+	cout << HEADER << "Enter pilot's name: ";
 	cin >> newName;
-	cout << "Enter weight: ";
-	cin >> newWeight;
-	while(cin.fail())
-	{
-		cin.clear();
-		cin.ignore(INT_MAX, '\n');
-		cout << "Enter valid integer weight: ";
-		cin >> newWeight;
-	}
-	cout << "Enter airport: (this functionality will be removed)";
-	cin >> atAirport;
-	Pilot * newPilot = new Pilot(newName, newWeight, atAirport);
+	Pilot * newPilot = new Pilot(newName);
 	return newPilot;
 }
+/*
+Passenger* new_passenger()
+{
+	string newName;
+	cout << HEADER << "Enter passenger'ss name: ";
+	cin >> newName;
+	Passenger * newPassenger = new Passenger(newName);
+	return newPassenger;
+}
+*/

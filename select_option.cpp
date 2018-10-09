@@ -32,6 +32,6 @@ int select_option(int input, int n_options)
 	}
 
 	//if input is not found in array
-	cout << "***failed select_option() checks***" << endl;
+	//cout << "***failed select_option() checks***" << endl;
 	return -1;
 }

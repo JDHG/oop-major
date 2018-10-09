@@ -1,6 +1,8 @@
 #include "pilot.h"
 #include "person.h"
 
+using namespace std;
+
 int Pilot::nPilots = 0;
 
 Pilot::Pilot() : Person()
@@ -9,7 +11,7 @@ Pilot::Pilot() : Person()
 	IDNumber = nPilots;
 	assignedPlane = false;
 }
-Pilot::Pilot(string newName) : Person(string newName)
+Pilot::Pilot(string newName) : Person(newName)
 {
 	nPilots++;
 	IDNumber = nPilots;
