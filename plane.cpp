@@ -1,5 +1,4 @@
 #include "plane.h"
-//#include "person.h"
 #include "pilot.h"
 
 #include <string>
@@ -81,7 +80,10 @@ void Plane::set_pilot(Pilot * newPilot) //pilot objects must have a bool to noti
 	{
 		pilot = newPilot;
 		hasPilot = true;
+		newPilot->set_assigned_plane();
+		return;
 	}
+	cout << "FAILED. Pilot not assigned" << endl;
 }
 
 void Plane::set_copilot(Pilot * newCoPilot) //pilot objects must have a bool to notify if they are available for assignment
@@ -90,7 +92,10 @@ void Plane::set_copilot(Pilot * newCoPilot) //pilot objects must have a bool to 
 	{
 		coPilot = newCoPilot;
 		hasCoPilot = true;
+		newCoPilot->set_assigned_plane();
+		return;
 	}
+	cout << "FAILED. Co-Pilot not assigned" << endl;
 }
 
 bool Plane::check_id()
