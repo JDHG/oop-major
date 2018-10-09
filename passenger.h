@@ -7,7 +7,7 @@ class Passenger : public Person {
 
 public:
 	Passenger();
-	Passenger(std::string newName, int newWeight, std::string newDestination);
+	Passenger(std::string newName);
 	
 	//Setters
 	void set_assigned_plane();

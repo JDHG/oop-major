@@ -2,20 +2,17 @@
 #include "person.h"
 
 using namespace std;
-Passenger() {
+Passenger::Passenger() : Person() {
 	assignedPlane = false;
 }
-Passenger(std::string newName, int newWeight, std::string newDestination) : Person(newName, newWeight, newDestination) {
+Passenger::Passenger(string newName) : Person(newName) {
 	assignedPlane = false;
 }
 //Setters
 void Passenger::set_assigned_plane() {
 	assignedPlane = !assignedPlane;
 }
-void Passenger::set_location(string newLocation) {
-	location = newLocation;
-}
 //Getters
-bool Passsenger::get_assigned_plane() {
+bool Passenger::get_assigned_plane() {
 	return assignedPlane;
 }

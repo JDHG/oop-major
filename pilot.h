@@ -9,7 +9,7 @@ class Pilot : public Person {
 
 public:
 	Pilot();
-	Pilot(std::string newName, int newWeight, std::string newDestination);
+	Pilot(std::string newName);
 
 	//Setters
 	void set_id_number(int newIDNumber);
