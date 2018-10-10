@@ -7,11 +7,8 @@ class B747 : public Plane
 {
 	std::string model;
 
-	//carries up to 364 passengers in 3 separate classes
-	int firstClassSeats;
-	int businessClassSeats;
-	int economyClassSeats;
-
+	//carries up to 15 passengers
+	int seats;
 	int fuelCapacity;
 	int fuel;
 	int onBoardWeight;

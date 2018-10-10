@@ -6,6 +6,7 @@
 #include "b747.h"
 #include "a320.h"
 #include <iostream>
+#include <stdlib.h> //used for rand()
 #include <string>
 #include <vector>
 #include <climits> // for INT_MAX limits in get_input functions
@@ -19,6 +20,7 @@ A320* new_a320();
 B747* new_b747();
 Airport* new_airport();
 Pilot* new_pilot();
+void create_passengers(Airport*,vector<Passenger*>*);
 
 //externally defined functions
 extern int select_option(int,int);
@@ -34,19 +36,26 @@ extern void build_pilot_menu(vector<Pilot*>);
 extern void build_pilot_sub_menu(Pilot*);
 extern void build_set_pilot_menu(vector<Pilot*>);
 extern void build_set_copilot_menu(vector<Pilot*>);
+extern void build_passenger_menu(vector<Passenger*>);
+extern void build_passenger_sub_menu(Passenger*);
+
+extern string rng_name();
 
 //global variables
 const int BACK_INT = -9; //used to go back from sub menus
 const int FAIL_INT = -1; //used if input functions fail
 const int QUIT_INT = -2; //used by home menu to quit program
+const int MAX_PASSENGERS = 50; //there may be no more than this many passengers created
+	  int TOTAL_PASSENGERS = 0;
 string HEADER = "#####  ";
 
 int main ()
 {
+	srand(time(NULL)); //gen random seed for rng_name()
 	vector<Airport*> ALL_AIRPORTS; //every airport created must be added to this vector
 	vector<Plane*> ALL_PLANES; //every plane created must be added to this vector
 	vector<Pilot*> ALL_PILOTS; //every pilot created must be added to this vector
-	vector<Passenger*> ALL_PASSENGERS;
+	vector<Passenger*> * ALL_PASSENGERS = new vector<Passenger*>;
 
 	//program loop input variables
 	string strinput; //used for user string input
@@ -279,7 +288,58 @@ int main ()
 			}
 			case 4: //passenger menu
 			{
-				//build_passenger_menu(ALL_PASSENGERS);
+				build_passenger_menu(*ALL_PASSENGERS);
+				input = get_sub_input();
+				if (input != BACK_INT && input != FAIL_INT)
+				{
+					subChoice = select_option(input, ALL_PASSENGERS->size());
+					cout << "subChoice = " << subChoice << endl;
+					if (subChoice >= 0 && subChoice < 99) //chosen passenger options menu
+					{
+						storedIndex = subChoice;
+						while (input != BACK_INT)
+						{
+							build_passenger_sub_menu((*ALL_PASSENGERS)[storedIndex]);
+							input = get_sub_input();
+							if (input != BACK_INT && input != FAIL_INT)
+							{
+								subChoice = select_option(input, 2); //2 options in passenger_sub_menu
+								if (subChoice >= 0 && subChoice < 99)
+								{
+									switch (subChoice)
+									{
+										case 0: //set name
+										{
+											cout << HEADER << "Enter new name: " << endl;
+											cin >> strinput;
+											(*ALL_PASSENGERS)[storedIndex]->set_name(strinput);
+											break;
+										}
+										case 1: //print passenger info
+										{
+											//(*ALL_PASSENGERS)[storedIndex]->print_details();
+											break;
+										}
+									}
+								}
+								if (subChoice == 99)
+								{
+									cout << (*ALL_PASSENGERS)[storedIndex]->get_name() << " has been ejected." << endl;
+									delete (*ALL_PASSENGERS)[storedIndex];
+									ALL_PASSENGERS->erase(ALL_PASSENGERS->begin() + storedIndex);
+									TOTAL_PASSENGERS--;
+									subChoice = BACK_INT;
+									input = BACK_INT;
+								}
+							}
+						}
+					}
+					if (subChoice == 99) //create passengers
+					{
+						cout << "ENTER CREATE PASSENGERS MENU" << endl;
+						create_passengers(ALL_AIRPORTS[0], ALL_PASSENGERS); //testing version only
+					}	
+				}
 				break;
 			}
 			//default: {cout << "***invalid input***" << endl; break;}
@@ -296,7 +356,7 @@ void build_home_menu()
 		<< "1   airports" << endl
 		<< "2   planes" << endl
 		<< "3   pilots" << endl
-		//<< "4   passengers" << endl
+		<< "4   passengers" << endl
 		<< "enter " << QUIT_INT << " to quit" << endl;
 }
 
@@ -358,13 +418,40 @@ Pilot* new_pilot()
 	Pilot * newPilot = new Pilot(newName);
 	return newPilot;
 }
-/*
-Passenger* new_passenger()
+void create_passengers(Airport* airport, vector<Passenger*>* all_passengers)
 {
+	int nPassengers;
+	int createdCount = 0;
 	string newName;
-	cout << HEADER << "Enter passenger'ss name: ";
-	cin >> newName;
-	Passenger * newPassenger = new Passenger(newName);
-	return newPassenger;
+	//create multiple passengers
+	cout << HEADER << "You may create up to " << MAX_PASSENGERS << " passengers." << endl
+		 << "Total passengers: " << TOTAL_PASSENGERS << "/" << MAX_PASSENGERS << endl
+		 << "How many passengers do you want to create at " << airport->get_location() << " airport? ";
+	cin >> nPassengers;
+	while (cin.fail()) //prevent infinite loops from invalid input
+	{
+		cin.clear();
+		cin.ignore(INT_MAX, '\n');
+		cout << "Enter valid integer value: ";
+		cin >> nPassengers;
+	}
+
+	for (int i = 0; i < nPassengers; i++)
+	{
+		if (TOTAL_PASSENGERS < MAX_PASSENGERS)
+		{
+			newName = rng_name();
+			Passenger * newPassenger = new Passenger(newName);
+			all_passengers->push_back(newPassenger);
+			TOTAL_PASSENGERS++;
+			createdCount++;
+			cout << "Passenger " << newName << " created." << endl;
+		}
+		if (TOTAL_PASSENGERS >= MAX_PASSENGERS)
+		{
+			i = nPassengers;
+		}
+	}
+	cout << createdCount << " passengers created succesfully at " << airport->get_location() << " airport." << endl;
+	cout << "Total passengers in the world: " << TOTAL_PASSENGERS << "/" << MAX_PASSENGERS << endl;
 }
-*/

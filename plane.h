@@ -2,6 +2,7 @@
 #define PLANE_H
 
 #include "pilot.h"
+#include "passenger.h"
 #include <string>
 #include <vector>
 
@@ -27,8 +28,7 @@ protected:
 
 	Pilot * pilot;
 	Pilot * coPilot;
-	//Staff ** staff;
-	//Passenger ** passengersOnBoard; //make vector
+	std::vector<Passenger*> passengersOnBoard;
 
 public:
 	Plane();

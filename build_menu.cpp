@@ -161,3 +161,24 @@ void build_pilot_sub_menu(Pilot* selection)
 	cout << "1   change name" << endl;
 	cout << endl << "99   fire this pilot" << endl << endl;	
 }
+
+
+//passenger menus
+void build_passenger_menu(vector<Passenger*> all_passengers)
+{
+	//dynamic menu. changes size with number of elements
+	cout << endl << MENU_HEADER << "Select Passenger: (enter number)" << endl;
+	for (int i = 0; i < all_passengers.size(); i++)
+	{
+		cout << i+1 << "   " << all_passengers[i]->get_name() << endl;
+	}
+	cout << endl << "99   create passengers" << endl << endl;
+}
+
+void build_passenger_sub_menu(Passenger* selection)
+{
+	cout << endl << MENU_HEADER << selection->get_name() << ": (enter number)" << endl;
+	cout << "1   change name" << endl
+		 << "2   *print details" << endl;
+	cout << endl << "99   eject this passenger" << endl << endl;	
+}
