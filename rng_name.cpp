@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <string>
+//#include <iostream>
 
 std::string rng_name()
 {
@@ -55,7 +56,6 @@ std::string rng_name()
 		"William",
 		"Gilberto",
 		"Chase",
-
 		"Kathi",
 		"Judie",
 		"Kimi",
@@ -104,8 +104,10 @@ std::string rng_name()
 		"Daphne",
 		"Tamika",
 		"Noemi",
-		"Mildred"
+		"Mildred",
+		"Dwennon"
 	};
-	int n = rand() % 101;
+	int n = rand() % 100;
+	//std::cout << "n = " << n << " ";
 	return NAMESLIST[n];
 }
