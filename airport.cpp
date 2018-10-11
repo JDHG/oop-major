@@ -40,6 +40,7 @@ bool Airport::departure(Plane* depPlane, Airport* destAirport, int input)
 	{
 		planesOnSite.erase(planesOnSite.begin() + (input - 1));
 		destAirport->planesOnSite.push_back(depPlane);
+		depPlane->set_location(destAirport->get_location());
 		return true;
 	}
 	cout << "Plane unable to depart." << endl;
@@ -48,8 +49,14 @@ bool Airport::departure(Plane* depPlane, Airport* destAirport, int input)
 
 void Airport::add_plane(Plane* newPlane)
 {
-	planesOnSite.push_back(newPlane);
-	newPlane->set_location(location);
+	if (!newPlane->check_location())
+	{
+		planesOnSite.push_back(newPlane);
+		newPlane->set_location(location);
+		cout << newPlane->get_id() << " added succesfully." << endl;
+		return;
+	}
+	cout << newPlane->get_id() << " cannot be added. It is somewhere else in the world." << endl;
 }
 
 	

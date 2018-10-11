@@ -45,6 +45,7 @@ extern string rng_name();
 const int BACK_INT = -9; //used to go back from sub menus
 const int FAIL_INT = -1; //used if input functions fail
 const int QUIT_INT = -2; //used by home menu to quit program
+//const int SPEC_INT = 99;
 const int MAX_PASSENGERS = 50; //there may be no more than this many passengers created
 	  int TOTAL_PASSENGERS = 0;
 string HEADER = "#####  ";
@@ -62,6 +63,9 @@ int main ()
 	int input = 0; //stores user input throughout menus
 	int subChoice = 0; //used exclusively with select_option() NEVER INDEX WITH THIS! USE storedIndex!
 	int storedIndex = 0; //used (if needed) to keep a vector/array index returned by "subChoice = select_option(ALL_OBJECTS, ALL_OBJECTS.size())""
+	int destAirportIndex;
+	int departPlaneIndex;
+	bool SUCCESSFUL_TRIP = false;
 
 
 	cout << endl << "*** Welcome to Plane Sim v0.1 ***" << endl << endl;
@@ -103,13 +107,25 @@ int main ()
 												input = select_option(get_sub_input(), ALL_AIRPORTS[storedIndex]->get_list_planes().size()); //input for choosing a plane to depart
 												if (input != BACK_INT && input != FAIL_INT)
 												{
-													int departPlaneIndex = input; //index of which plane is to leave current airport
+													departPlaneIndex = input; //index of which plane is to leave current airport
 													build_departure_menu_2(ALL_AIRPORTS);
 													input = select_option(get_sub_input(), ALL_AIRPORTS.size());
 													if (input != BACK_INT && input != FAIL_INT)
 													{
-														int destAirportIndex = input;
-														ALL_AIRPORTS[storedIndex]->departure(ALL_AIRPORTS[storedIndex]->get_list_planes()[departPlaneIndex], ALL_AIRPORTS[destAirportIndex], departPlaneIndex);
+														destAirportIndex = input;
+
+														//departure function call
+														SUCCESSFUL_TRIP = ALL_AIRPORTS[storedIndex]->departure(
+															ALL_AIRPORTS[storedIndex]->get_list_planes()[departPlaneIndex],
+															ALL_AIRPORTS[destAirportIndex],
+															departPlaneIndex);
+
+													}
+													if(SUCCESSFUL_TRIP)
+													{
+														cout << ALL_AIRPORTS[destAirportIndex]->get_list_planes()[0]->get_id()
+															 << " has landed at "
+															 << ALL_AIRPORTS[destAirportIndex]->get_location() << endl;
 													}
 												}
 												break;	
