@@ -23,7 +23,7 @@ public:
 
 
 
-	bool departure(Plane* depPlane, Airport* destAirport, int input); //removes departing plane from planesOnSite array.
+	bool departure(Plane* depPlane, Airport* destAirport, int input, bool cheat); //removes departing plane from planesOnSite array.
 	void add_plane(Plane* newPlane);
 	void list_planes();
 

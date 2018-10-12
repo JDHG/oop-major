@@ -68,6 +68,8 @@ int main ()
 	int departPlaneIndex;
 	bool SUCCESSFUL_TRIP = false;
 
+	bool CHEAT_ENABLED = false; //used for departure testing (planes can fly without passing checks)
+
 
 	cout << endl << "*** Welcome to Plane Sim v0.1 ***" << endl << endl;
 	//main program loop
@@ -119,7 +121,8 @@ int main ()
 														SUCCESSFUL_TRIP = ALL_AIRPORTS[storedIndex]->departure(
 															ALL_AIRPORTS[storedIndex]->get_list_planes()[departPlaneIndex],
 															ALL_AIRPORTS[destAirportIndex],
-															departPlaneIndex);
+															departPlaneIndex,
+															CHEAT_ENABLED);
 
 													}
 													if(SUCCESSFUL_TRIP)
@@ -377,6 +380,15 @@ int main ()
 				}
 				break;
 			}
+
+			case 7:
+			{
+				cout << "ENTERED CHEAT - TESTING ONLY" << endl;
+				CHEAT_ENABLED = !CHEAT_ENABLED;
+				cout << "cheat active: " << CHEAT_ENABLED << endl;
+				break;
+			}
+			
 			//default: {cout << "***invalid input***" << endl; break;}
 			case -2: {cout << "QUIT PROGRAM" << endl; break;}
 		}
@@ -392,6 +404,7 @@ void build_home_menu()
 		<< "2   planes" << endl
 		<< "3   pilots" << endl
 		<< "4   passengers" << endl
+		<< "7   ENABLE FLYING CHEAT" << endl //testing only
 		<< "enter " << QUIT_INT << " to quit" << endl;
 }
 

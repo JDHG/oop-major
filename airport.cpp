@@ -1,6 +1,7 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <algorithm>
 #include "plane.h"
 #include "airport.h"
 
@@ -34,12 +35,25 @@ void Airport::list_planes()
 }
 
 //removes departing plane from planesOnSite array.
-bool Airport::departure(Plane* depPlane, Airport* destAirport, int input)
+bool Airport::departure(Plane* depPlane, Airport* destAirport, int input, bool CHEAT_CODE)
 {
-	if (depPlane->can_fly())
+	if (depPlane->can_fly() || CHEAT_CODE)
 	{
-		planesOnSite.erase(planesOnSite.begin() + (input - 1));
-		destAirport->planesOnSite.push_back(depPlane);
+
+	if (CHEAT_CODE)
+	{
+		cout << "* * * CHEAT ACTIVE. PLANES CAN ALWAYS FLY * * *" << endl;
+	}
+
+		destAirport->planesOnSite.push_back(depPlane); //copies plane into destination vector
+
+		//moves plane to end of airport's vector and pops it off.
+		if (planesOnSite.size() > 1)
+		{
+			iter_swap(planesOnSite.begin() + (input - 1), planesOnSite.end());
+		}
+		planesOnSite.pop_back();
+
 		depPlane->set_location(destAirport->get_location());
 		return true;
 	}
