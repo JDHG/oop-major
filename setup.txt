@@ -47,11 +47,4 @@ echo ##### SEND PLANE-1 TO AIRPORT-2 #####
 1
 2
 -9
-echo ##### SEND PLANE-1 BACK TO AIRPORT-1 #####
-1
-2
-1
-1
-1
--9
 -2

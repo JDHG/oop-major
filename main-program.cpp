@@ -25,6 +25,7 @@ void create_passengers(Airport*,vector<Passenger*>*);
 //externally defined functions
 extern int select_option(int,int);
 extern void build_airport_menu(vector<Airport*>);
+extern void build_airport_passenger_menu(vector<Airport*>);
 extern void build_airport_sub_menu(Airport*);
 extern void build_departure_menu_1(vector<Plane*>);
 extern void build_departure_menu_2(vector<Airport*>);
@@ -45,7 +46,7 @@ extern string rng_name();
 const int BACK_INT = -9; //used to go back from sub menus
 const int FAIL_INT = -1; //used if input functions fail
 const int QUIT_INT = -2; //used by home menu to quit program
-//const int SPEC_INT = 99;
+const int SPEC_INT = 99;
 const int MAX_PASSENGERS = 50; //there may be no more than this many passengers created
 	  int TOTAL_PASSENGERS = 0;
 string HEADER = "#####  ";
@@ -86,7 +87,7 @@ int main ()
 					if (input != BACK_INT && input != FAIL_INT)
 					{
 						subChoice = select_option(input, ALL_AIRPORTS.size());
-						if (subChoice >= 0 && subChoice < 99) //chosen airport's options sub-menu
+						if (subChoice >= 0 && subChoice < SPEC_INT) //chosen airport's options sub-menu
 						{
 							storedIndex = subChoice;
 							while (input != BACK_INT)
@@ -95,8 +96,8 @@ int main ()
 								input = get_sub_input();
 								if (input != BACK_INT && input != FAIL_INT)
 								{
-									subChoice = select_option(input, 3); //3 current options from airport sub menu (99 option doesn't count)
-									if (subChoice >= 0 && subChoice < 99)
+									subChoice = select_option(input, 3); //3 current options from airport sub menu (SPEC_INT option doesn't count)
+									if (subChoice >= 0 && subChoice < SPEC_INT)
 									{
 										switch (subChoice)
 										{
@@ -105,12 +106,12 @@ int main ()
 												//gets planes at current airport
 												build_departure_menu_1(ALL_AIRPORTS[storedIndex]->get_list_planes());
 												input = select_option(get_sub_input(), ALL_AIRPORTS[storedIndex]->get_list_planes().size()); //input for choosing a plane to depart
-												if (input != BACK_INT && input != FAIL_INT)
+												if (input != BACK_INT && input != FAIL_INT && input != SPEC_INT)
 												{
 													departPlaneIndex = input; //index of which plane is to leave current airport
 													build_departure_menu_2(ALL_AIRPORTS);
 													input = select_option(get_sub_input(), ALL_AIRPORTS.size());
-													if (input != BACK_INT && input != FAIL_INT)
+													if (input != BACK_INT && input != FAIL_INT && input != SPEC_INT)
 													{
 														destAirportIndex = input;
 
@@ -134,7 +135,7 @@ int main ()
 											{
 												build_add_plane_to_airport_menu(ALL_PLANES); //list true/false availability like pilots
 												input = select_option(get_sub_input(), ALL_PLANES.size());
-												if (input != BACK_INT && input != FAIL_INT)
+												if (input != BACK_INT && input != FAIL_INT && input != SPEC_INT)
 												{
 													ALL_AIRPORTS[storedIndex]->add_plane(ALL_PLANES[input]);
 												}
@@ -147,7 +148,7 @@ int main ()
 											}
 										}
 									}
-									if (subChoice == 99) //delete airport
+									if (subChoice == SPEC_INT) //delete airport
 									{
 										cout << ALL_AIRPORTS[storedIndex]->get_location() << " airport deleted." << endl;
 										delete ALL_AIRPORTS[storedIndex];
@@ -158,7 +159,7 @@ int main ()
 								}
 							}
 						}
-						if (subChoice == 99) {ALL_AIRPORTS.push_back(new_airport());}
+						if (subChoice == SPEC_INT) {ALL_AIRPORTS.push_back(new_airport());}
 					}
 				}
 				break;
@@ -172,7 +173,7 @@ int main ()
 					if (input != BACK_INT && input != FAIL_INT)
 					{
 						subChoice = select_option(input, ALL_PLANES.size());
-						if (subChoice >= 0 && subChoice < 99) //chosen plane options menu
+						if (subChoice >= 0 && subChoice < SPEC_INT) //chosen plane options menu
 						{
 							storedIndex = subChoice;
 							while (input != BACK_INT)
@@ -182,7 +183,7 @@ int main ()
 								if (input != BACK_INT && input != FAIL_INT)
 								{
 									subChoice = select_option(input, 5); //5 options in plane_sub_menu
-									if (subChoice >= 0 && subChoice < 99)
+									if (subChoice >= 0 && subChoice < SPEC_INT)
 									{
 										switch (subChoice)
 										{
@@ -205,7 +206,7 @@ int main ()
 												//add pilot
 												build_set_pilot_menu(ALL_PILOTS);
 												input = select_option(get_sub_input(), ALL_PILOTS.size());
-												if (input != BACK_INT && input != FAIL_INT)
+												if (input != BACK_INT && input != FAIL_INT && input != SPEC_INT)
 												{
 													ALL_PLANES[storedIndex]->set_pilot(ALL_PILOTS[input]);
 												}
@@ -216,7 +217,7 @@ int main ()
 												//add co pilot
 												build_set_copilot_menu(ALL_PILOTS);
 												input = select_option(get_sub_input(), ALL_PILOTS.size());
-												if (input != BACK_INT && input != FAIL_INT)
+												if (input != BACK_INT && input != FAIL_INT && input != SPEC_INT)
 												{
 													ALL_PLANES[storedIndex]->set_copilot(ALL_PILOTS[input]);
 												}
@@ -226,12 +227,12 @@ int main ()
 											{
 												//refuel
 												ALL_PLANES[storedIndex]->refuel();
-												cout << "Plane refueled." << endl;
+												cout << HEADER << "Plane refueled." << endl;
 												break;
 											}
 										}
 									}
-									if (subChoice == 99) //delete plane
+									if (subChoice == SPEC_INT) //delete plane
 									{
 										cout << "Plane "<< ALL_PLANES[storedIndex]->get_id() << " deleted." << endl;
 										delete ALL_PLANES[storedIndex];
@@ -242,11 +243,11 @@ int main ()
 								}
 							}
 						}
-						if (subChoice == 99) //create new plane menu
+						if (subChoice == SPEC_INT) //create new plane menu
 						{
 							build_add_plane_menu();
 							input = select_option(get_sub_input(),2); //2 plane options
-							if (input != BACK_INT && input != FAIL_INT)
+							if (input != BACK_INT && input != FAIL_INT && input != SPEC_INT)
 							{
 								switch (input)
 								{
@@ -269,7 +270,7 @@ int main ()
 					if (input != BACK_INT && input != FAIL_INT)
 					{
 						subChoice = select_option(input, ALL_PILOTS.size());
-						if (subChoice >= 0 && subChoice < 99) //chosen pilot options menu
+						if (subChoice >= 0 && subChoice < SPEC_INT) //chosen pilot options menu
 						{
 							storedIndex = subChoice;
 							while (input != BACK_INT)
@@ -279,14 +280,14 @@ int main ()
 								if (input != BACK_INT && input != FAIL_INT)
 								{
 									subChoice = select_option(input, 1); //1 options in pilot_sub_menu
-									if (subChoice >= 0 && subChoice < 99)
+									if (subChoice >= 0 && subChoice < SPEC_INT)
 									{
 										cout << HEADER << "Enter new name: " << endl;
 										cin >> strinput;
 										ALL_PILOTS[storedIndex]->set_name(strinput);
 									}
 										
-									if (subChoice == 99) //delete pilot
+									if (subChoice == SPEC_INT) //delete pilot
 									{
 										cout << ALL_PILOTS[storedIndex]->get_name() << " has been fired." << endl;
 										delete ALL_PILOTS[storedIndex];
@@ -297,7 +298,7 @@ int main ()
 								}
 							}
 						}
-					if (subChoice == 99){ALL_PILOTS.push_back(new_pilot());}
+					if (subChoice == SPEC_INT){ALL_PILOTS.push_back(new_pilot());}
 					}
 				}
 				break;
@@ -310,7 +311,7 @@ int main ()
 				{
 					subChoice = select_option(input, ALL_PASSENGERS->size());
 					cout << "subChoice = " << subChoice << endl;
-					if (subChoice >= 0 && subChoice < 99) //chosen passenger options menu
+					if (subChoice >= 0 && subChoice < SPEC_INT) //chosen passenger options menu
 					{
 						storedIndex = subChoice;
 						while (input != BACK_INT)
@@ -320,7 +321,7 @@ int main ()
 							if (input != BACK_INT && input != FAIL_INT)
 							{
 								subChoice = select_option(input, 2); //2 options in passenger_sub_menu
-								if (subChoice >= 0 && subChoice < 99)
+								if (subChoice >= 0 && subChoice < SPEC_INT)
 								{
 									switch (subChoice)
 									{
@@ -338,7 +339,7 @@ int main ()
 										}
 									}
 								}
-								if (subChoice == 99)
+								if (subChoice == SPEC_INT)
 								{
 									cout << (*ALL_PASSENGERS)[storedIndex]->get_name() << " has been ejected." << endl;
 									delete (*ALL_PASSENGERS)[storedIndex];
@@ -350,10 +351,28 @@ int main ()
 							}
 						}
 					}
-					if (subChoice == 99) //create passengers
+					if (subChoice == SPEC_INT) //create passengers
 					{
-						cout << "ENTER CREATE PASSENGERS MENU" << endl;
-						create_passengers(ALL_AIRPORTS[0], ALL_PASSENGERS); //testing version only
+						cout << endl;
+						while (input != BACK_INT)
+						{
+							if (ALL_AIRPORTS.size() == 0)
+							{
+								cout << HEADER << "You must create an airport before creating passengers." << endl;
+							}
+							if (ALL_AIRPORTS.size() != 0)
+							{
+								cout << HEADER << "Select Airport to create passengers at: " << endl;
+								build_airport_passenger_menu(ALL_AIRPORTS);
+								input = select_option(get_sub_input(), ALL_AIRPORTS.size());
+								if (input != BACK_INT && input != FAIL_INT && input != SPEC_INT)
+								{
+									storedIndex = input;
+									create_passengers(ALL_AIRPORTS[storedIndex], ALL_PASSENGERS);
+								}
+							}
+							input = BACK_INT;
+						}
 					}	
 				}
 				break;
@@ -458,6 +477,7 @@ void create_passengers(Airport* airport, vector<Passenger*>* all_passengers)
 		{
 			newName = rng_name();
 			Passenger * newPassenger = new Passenger(newName);
+			
 			all_passengers->push_back(newPassenger);
 			TOTAL_PASSENGERS++;
 			createdCount++;

@@ -22,6 +22,15 @@ void build_airport_menu(vector<Airport*> all_airports)
 	}
 	cout << endl << "99  create new airport" << endl << endl;
 }
+void build_airport_passenger_menu(vector<Airport*> all_airports)
+{
+	//dynamic menu. changes size with number of elements
+	cout << endl << MENU_HEADER << "Select Airport: (enter number)" << endl;
+	for (int i = 0; i < all_airports.size(); i++)
+	{
+		cout << i+1 << "   " << all_airports[i]->get_location() << endl;
+	}
+}
 
 void build_airport_sub_menu(Airport* selection)
 {
