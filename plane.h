@@ -45,6 +45,7 @@ public:
 	void remove_location();
 	void set_pilot(Pilot * newPilot);
 	void set_copilot(Pilot * newCoPilot);
+	virtual void add_passenger(Passenger * newPassenger) = 0;
 
 	bool check_id();
 	bool check_location();

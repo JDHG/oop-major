@@ -202,6 +202,18 @@ int main ()
 											{
 												//add passengers
 												cout << "*** CANT ADD PASSENGERS YET" << endl;
+												/*
+												for (int i = 0; i < TOTAL_PASSENGERS; i++)
+												{
+													cout << i << "   " << *ALL_PASSENGERS[i].get_name()
+														 << " at airport: " << *ALL_PASSENGERS[i].get_location() << endl;
+												}
+												input = select_option(get_sub_input(), TOTAL_PASSENGERS);
+												if (input != BACK_INT && input != FAIL_INT && input != SPEC_INT)
+												{
+													ALL_PLANES[storedIndex]->add_passenger(ALL_PASSENGERS[input])
+												}
+												*/
 												break;
 											}
 											case 2:

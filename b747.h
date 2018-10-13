@@ -22,6 +22,7 @@ public:
 	bool can_fly();
 	void refuel();
 	void print_details();
+	void add_passenger(Passenger*);
 
 	bool fuel_check();
 	bool pilot_check();

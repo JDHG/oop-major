@@ -122,6 +122,12 @@ void build_add_plane_menu()
 		 << "2    B747" << endl;
 }
 
+void build_add_passenger_menu(vector<Passenger*> all_passengers)
+{
+	cout << "Select Passenger to add: " << endl;
+
+}
+
 void build_set_pilot_menu(vector<Pilot*> all_pilots)
 {
 	string availability;

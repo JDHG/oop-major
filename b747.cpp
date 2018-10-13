@@ -96,6 +96,18 @@ void B747::print_details()
 	}
 }
 
+void B747::add_passenger(Passenger * newPassenger)
+{
+	if (newPassenger->get_location() == get_location() && totalPassengers < seats)
+	{
+		passengersOnBoard.push_back(newPassenger);
+		totalPassengers++;
+		cout << "Passenger added succesfully" << endl;
+		return;
+	}
+	cout << "* * * FAILED TO ADD PASSENGER * * *" << endl;
+}
+
 bool B747::fuel_check()
 {
 	if (fuel < (fuelCapacity - fuelCapacity/10))
