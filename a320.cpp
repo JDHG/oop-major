@@ -101,7 +101,7 @@ void A320::add_passenger(Passenger * newPassenger)
 	{
 		passengersOnBoard.push_back(newPassenger);
 		totalPassengers++;
-		cout << "Passenger added succesfully" << endl;
+		cout << "Passenger added succesfully." << endl;
 		return;
 	}
 	cout << "* * * FAILED TO ADD PASSENGER * * *" << endl;

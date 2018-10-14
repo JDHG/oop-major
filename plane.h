@@ -28,7 +28,7 @@ protected:
 
 	Pilot * pilot;
 	Pilot * coPilot;
-	std::vector<Passenger*> passengersOnBoard;
+	std::vector<Passenger*> passengersOnBoard; //maybe just store passenger names and number? this way they can be deleted properly
 
 public:
 	Plane();
@@ -38,6 +38,7 @@ public:
 	virtual void refuel() = 0;
 	virtual void print_details() = 0;
 	virtual std::string get_model() = 0;
+	virtual void add_passenger(Passenger * newPassenger) = 0;
 
 	void set_id(std::string newID);
 	void set_location(std::string newLocation);
@@ -45,10 +46,11 @@ public:
 	void remove_location();
 	void set_pilot(Pilot * newPilot);
 	void set_copilot(Pilot * newCoPilot);
-	virtual void add_passenger(Passenger * newPassenger) = 0;
 
 	bool check_id();
 	bool check_location();
+
+	void clear_passengers();
 
 	std::string get_location();
 	std::string get_destination();

@@ -122,10 +122,14 @@ void build_add_plane_menu()
 		 << "2    B747" << endl;
 }
 
-void build_add_passenger_menu(vector<Passenger*> all_passengers)
+void build_add_passenger_menu(vector<Passenger*> all_passengers, int total_passengers)
 {
 	cout << "Select Passenger to add: " << endl;
-
+	for (int i = 0; i < total_passengers; i++)
+	{
+		cout << i << "   " << all_passengers[i]->get_name()
+			 << " at airport: " << all_passengers[i]->get_location() << endl;
+	}
 }
 
 void build_set_pilot_menu(vector<Pilot*> all_pilots)

@@ -33,6 +33,7 @@ extern void build_add_plane_to_airport_menu(vector<Plane*>);
 extern void build_plane_menu(vector<Plane*>);
 extern void build_plane_sub_menu(Plane*);
 extern void build_add_plane_menu();
+extern void build_add_passenger_menu(vector<Passenger*>, int);
 extern void build_pilot_menu(vector<Pilot*>);
 extern void build_pilot_sub_menu(Pilot*);
 extern void build_set_pilot_menu(vector<Pilot*>);
@@ -66,6 +67,7 @@ int main ()
 	int storedIndex = 0; //used (if needed) to keep a vector/array index returned by "subChoice = select_option(ALL_OBJECTS, ALL_OBJECTS.size())""
 	int destAirportIndex;
 	int departPlaneIndex;
+	Plane * chosenPlane;
 	bool SUCCESSFUL_TRIP = false;
 
 	bool CHEAT_ENABLED = false; //used for departure testing (planes can fly without passing checks)
@@ -116,10 +118,11 @@ int main ()
 													if (input != BACK_INT && input != FAIL_INT && input != SPEC_INT)
 													{
 														destAirportIndex = input;
+														chosenPlane = ALL_AIRPORTS[storedIndex]->get_list_planes()[departPlaneIndex];
 
 														//departure function call
 														SUCCESSFUL_TRIP = ALL_AIRPORTS[storedIndex]->departure(
-															ALL_AIRPORTS[storedIndex]->get_list_planes()[departPlaneIndex],
+															chosenPlane,
 															ALL_AIRPORTS[destAirportIndex],
 															departPlaneIndex,
 															CHEAT_ENABLED);
@@ -130,6 +133,9 @@ int main ()
 														cout << ALL_AIRPORTS[destAirportIndex]->get_list_planes()[0]->get_id()
 															 << " has landed at "
 															 << ALL_AIRPORTS[destAirportIndex]->get_location() << endl;
+
+														chosenPlane->clear_passengers();
+														cout << "All passengers have been delivered succesfully" << endl;
 													}
 												}
 												break;	
@@ -202,18 +208,13 @@ int main ()
 											{
 												//add passengers
 												cout << "*** CANT ADD PASSENGERS YET" << endl;
-												/*
-												for (int i = 0; i < TOTAL_PASSENGERS; i++)
-												{
-													cout << i << "   " << *ALL_PASSENGERS[i].get_name()
-														 << " at airport: " << *ALL_PASSENGERS[i].get_location() << endl;
-												}
+												build_add_passenger_menu(*ALL_PASSENGERS, TOTAL_PASSENGERS);
 												input = select_option(get_sub_input(), TOTAL_PASSENGERS);
 												if (input != BACK_INT && input != FAIL_INT && input != SPEC_INT)
 												{
-													ALL_PLANES[storedIndex]->add_passenger(ALL_PASSENGERS[input])
+													ALL_PLANES[storedIndex]->add_passenger((*ALL_PASSENGERS)[input]);
 												}
-												*/
+												
 												break;
 											}
 											case 2:
@@ -502,7 +503,7 @@ void create_passengers(Airport* airport, vector<Passenger*>* all_passengers)
 		{
 			newName = rng_name();
 			Passenger * newPassenger = new Passenger(newName);
-			
+			newPassenger->set_location(airport->get_location());
 			all_passengers->push_back(newPassenger);
 			TOTAL_PASSENGERS++;
 			createdCount++;

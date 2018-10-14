@@ -107,6 +107,13 @@ bool Plane::check_location()
 	return hasLocation;
 }
 
+void Plane::clear_passengers()
+{
+	passengersOnBoard.clear();
+	//passengersOnBoard.shrink_to_fit();
+	cout << "size: " << passengersOnBoard.size() << endl;
+}
+
 string Plane::get_location()
 {
 	return location;

@@ -11,7 +11,7 @@ public:
 	
 	//Setters
 	void set_assigned_plane();
-	void set_location();
+	//void set_location();
 	//Getters
 	bool get_assigned_plane();
 };
