@@ -39,11 +39,10 @@ bool Airport::departure(Plane* depPlane, Airport* destAirport, int input, bool C
 {
 	if (depPlane->can_fly() || CHEAT_CODE)
 	{
-
-	if (CHEAT_CODE)
-	{
-		cout << "* * * CHEAT ACTIVE. PLANES CAN ALWAYS FLY * * *" << endl;
-	}
+		if (CHEAT_CODE)
+		{
+			cout << "* * * CHEAT ACTIVE. PLANES CAN ALWAYS FLY * * *" << endl;
+		}
 
 		destAirport->planesOnSite.push_back(depPlane); //copies plane into destination vector
 

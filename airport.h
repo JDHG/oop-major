@@ -10,7 +10,8 @@ class Airport
 {
 
 	std::string location;  //Location of Airport
-	std::vector<Plane*> planesOnSite;  //Vector of planes grounded at chosen Airport
+	std::vector<Plane*> planesOnSite; //Vector of planes grounded at chosen Airport
+	//std::string * planesOnSite;
 	std::vector<Passenger*> passengerOnSite;  //Vector of Passengers at chosen Airport
 	
 
