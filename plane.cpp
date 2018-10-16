@@ -1,11 +1,12 @@
 #include "plane.h"
 #include "pilot.h"
-
 #include <string>
 #include <iostream>
 #include <vector>
 
 using namespace std;
+
+//class Airport;
 
 //static member declarations
 int Plane::creationID = 0; //number of planes that exist
@@ -60,13 +61,16 @@ void Plane::set_id(string newID) //sets ID only if ID is unique from all previou
 	IDcount++;
 	planeID = newID;
 	hasID = true;
-	//cout << "test setID - has executed." << endl;
 }
 
 void Plane::set_location(string newLocation)
 {
 	location = newLocation;
 	hasLocation = true;
+}
+void Plane::set_airport_location(Airport * newAirport)
+{
+	airportLocation = newAirport;
 }
 
 void Plane::remove_location()
@@ -118,6 +122,14 @@ string Plane::get_location()
 {
 	return location;
 }
+Airport * Plane::get_airport_location()
+{
+	if(hasLocation)
+	{
+		return airportLocation;
+	}
+	cout << "THIS PLANE HAS NO LOCATION" << endl;
+}
 
 string Plane::get_destination()
 {
@@ -127,6 +139,11 @@ string Plane::get_destination()
 string Plane::get_id()
 {
 	return planeID;
+}
+
+std::vector<Passenger*> Plane::get_passengers_on_board()
+{
+	return passengersOnBoard;
 }
 
 Plane::~Plane()

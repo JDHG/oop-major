@@ -124,13 +124,16 @@ void build_add_plane_menu()
 		 << "2    B747" << endl;
 }
 
-void build_add_passenger_menu(vector<Passenger*> all_passengers, int total_passengers)
+void build_add_passenger_menu(Airport * airport, int total_passengers)
 {
-	cout << "Select Passenger to add: " << endl;
-	for (int i = 0; i < total_passengers; i++)
+	if (total_passengers > 0)
 	{
-		cout << i << "   " << all_passengers[i]->get_name()
-			 << " at airport: " << all_passengers[i]->get_location() << endl;
+		cout << "Select Passenger to add from " << airport->get_location() << endl;
+		for (int i = 0; i < total_passengers; i++)
+		{
+			cout << i << "   " << airport->get_passengers_at_airport()[i]->get_name() << endl;
+				 //<< " at airport: " << airport->get_passengers_at_airport()[i]->get_location() << endl;
+		}
 	}
 }
 

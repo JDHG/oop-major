@@ -13,6 +13,7 @@ class Airport
 	//std::vector<Plane*> planesOnSite; //Vector of planes grounded at chosen Airport
 	//std::string * planesOnSite;
 	std::vector<Passenger*> passengerOnSite;  //Vector of Passengers at chosen Airport
+	int totalPassengers;
 	
 
 public:
@@ -21,13 +22,14 @@ public:
 
 	//getters
 	std::string get_location();
-	//std::vector<Plane*> get_list_planes();
+	std::vector<Passenger*> get_passengers_at_airport();
+	int get_total_passengers();
 
 
 
-	bool departure(Plane* depPlane, Airport* destAirport, int input, bool cheat); //removes departing plane from planesOnSite array.
+	bool departure(Plane* depPlane, Airport* destAirport, int input, bool cheat);
 	void add_plane(Plane* newPlane);
-	void list_planes(std::vector<Plane*> planesOnSite); //takes ALL_PLANES as argument
+	void list_planes(std::vector<Plane*>); //takes ALL_PLANES as argument
 
 	void add_passenger_to_airport(Passenger* chosenPassenger);
 	void remove_passenger_from_airport(int index);

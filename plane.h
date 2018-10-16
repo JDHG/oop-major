@@ -3,8 +3,11 @@
 
 #include "pilot.h"
 #include "passenger.h"
+//#include "airport.h"
 #include <string>
 #include <vector>
+
+class Airport;
 
 class Plane
 {
@@ -28,6 +31,7 @@ protected:
 
 	Pilot * pilot;
 	Pilot * coPilot;
+	Airport * airportLocation;
 	std::vector<Passenger*> passengersOnBoard; //maybe just store passenger names and number? this way they can be deleted properly
 
 public:
@@ -42,6 +46,7 @@ public:
 
 	void set_id(std::string newID);
 	void set_location(std::string newLocation);
+	void set_airport_location(Airport * newAirport);
 	void set_destination(std::string newDestination);
 	void remove_location();
 	void set_pilot(Pilot * newPilot);
@@ -53,8 +58,10 @@ public:
 	void clear_passengers();
 
 	std::string get_location();
+	Airport * get_airport_location();
 	std::string get_destination();
 	std::string get_id();
+	std::vector<Passenger*> get_passengers_on_board();
 
 	~Plane();
 };

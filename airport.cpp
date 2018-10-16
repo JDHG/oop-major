@@ -1,18 +1,16 @@
 #include <string>
 #include <iostream>
 #include <vector>
-#include <algorithm>
 #include "plane.h"
 #include "airport.h"
 
 using namespace std;
 
 
-//another test edit
-
 Airport::Airport(string loc)
 {
 	location = loc;
+	totalPassengers = 0;
 }
 
 	//getters	
@@ -21,12 +19,15 @@ string Airport::get_location()
 	return location;
 }
 
-/*
-vector<Plane*> Airport::get_list_planes()
+vector<Passenger*> Airport::get_passengers_at_airport()
 {
-	return planesOnSite;
+	return passengerOnSite;
 }
-*/
+
+int Airport::get_total_passengers()
+{
+	return totalPassengers;
+}
 
 void Airport::list_planes(vector<Plane*> planesOnSite)
 {
@@ -51,6 +52,7 @@ bool Airport::departure(Plane* depPlane, Airport* destAirport, int input, bool C
 		}
 
 		depPlane->set_location(destAirport->get_location());
+		depPlane->set_airport_location(destAirport);
 
 		return true;
 	}
@@ -63,6 +65,7 @@ void Airport::add_plane(Plane* newPlane)
 	if (!newPlane->check_location()) //this check isnt working
 	{
 		newPlane->set_location(location);
+		//need to set current airport for plane too
 		cout << newPlane->get_id() << " added succesfully." << endl;
 		return;
 	}
@@ -72,7 +75,8 @@ void Airport::add_plane(Plane* newPlane)
 void Airport::add_passenger_to_airport(Passenger* chosenPassenger)
 {
 	passengerOnSite.push_back(chosenPassenger);
-	chosenPassenger->set_location(location);	
+	chosenPassenger->set_location(location);
+	totalPassengers++;
 }
 
 void Airport::remove_passenger_from_airport(int index)

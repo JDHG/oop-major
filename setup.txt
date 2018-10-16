@@ -37,12 +37,26 @@ echo ##### SET CO PILOT IN PLANE-1 #####
 echo ##### REFUEL #####
 5
 -9
+echo ##### CREATE PASSENGERS
+4
+99
+1
+10
 echo ##### ADD PLANE-1 TO AIRPORT-1 #####
 1
 1
 2
 1
+-9
+echo ##### ADD PASSENGERS TO PLANE-1
+2
+1
+2
+3
+-9
 echo ##### SEND PLANE-1 TO AIRPORT-2 #####
+1
+1
 1
 1
 2

@@ -27,13 +27,13 @@ extern int select_option(int,int);
 extern void build_airport_menu(vector<Airport*>);
 extern void build_airport_passenger_menu(vector<Airport*>);
 extern void build_airport_sub_menu(Airport*);
-extern void build_departure_menu_1(vector<Plane*>);
+//extern void build_departure_menu_1(vector<Plane*>);
 extern void build_departure_menu_2(vector<Airport*>);
 extern void build_add_plane_to_airport_menu(vector<Plane*>);
 extern void build_plane_menu(vector<Plane*>);
 extern void build_plane_sub_menu(Plane*);
 extern void build_add_plane_menu();
-extern void build_add_passenger_menu(vector<Passenger*>, int);
+extern void build_add_passenger_menu(Airport*, int);
 extern void build_pilot_menu(vector<Pilot*>);
 extern void build_pilot_sub_menu(Pilot*);
 extern void build_set_pilot_menu(vector<Pilot*>);
@@ -68,6 +68,7 @@ int main ()
 	int storedIndex = 0; //used (if needed) to keep a vector/array index returned by "subChoice = select_option(ALL_OBJECTS, ALL_OBJECTS.size())""
 	int destAirportIndex;
 	int departPlaneIndex;
+	Airport * passengerSource; //used for adding passengers from airport to plane
 
 	Plane * chosenPlane;
 	bool SUCCESSFUL_TRIP = false;
@@ -138,6 +139,7 @@ int main ()
 																ALL_AIRPORTS[destAirportIndex],
 																departPlaneIndex,
 																CHEAT_ENABLED);
+															//set airport location
 
 														}
 														else
@@ -164,6 +166,7 @@ int main ()
 												if (input != BACK_INT && input != FAIL_INT && input != SPEC_INT)
 												{
 													ALL_PLANES[input]->set_location(ALL_AIRPORTS[storedIndex]->get_location());
+													ALL_PLANES[input]->set_airport_location(ALL_AIRPORTS[storedIndex]);
 												}
 												break;
 											}
@@ -226,13 +229,44 @@ int main ()
 											{
 												//add passengers
 												cout << "*** CANT ADD PASSENGERS YET" << endl;
-												build_add_passenger_menu(*ALL_PASSENGERS, TOTAL_PASSENGERS);
-												input = select_option(get_sub_input(), TOTAL_PASSENGERS);
-												if (input != BACK_INT && input != FAIL_INT && input != SPEC_INT)
+												if (TOTAL_PASSENGERS != 0)
 												{
-													ALL_PLANES[storedIndex]->add_passenger((*ALL_PASSENGERS)[input]);
+													if(ALL_PLANES[storedIndex]->check_location())
+													{
+														passengerSource = ALL_PLANES[storedIndex]->get_airport_location();
+														cout << "airport locale: " << passengerSource->get_location() << endl;
+
+														build_add_passenger_menu(passengerSource, passengerSource->get_total_passengers());
+														//input = select_option(get_sub_input(), passengerSource->get_total_passengers());
+														input = get_sub_input();
+
+														if (input != BACK_INT && input != FAIL_INT && input != SPEC_INT)
+														{
+															if (input <= passengerSource->get_total_passengers() && input >= 0)
+															{
+																cout << "PASSENGER INDEX: " << input << endl;
+																ALL_PLANES[storedIndex]->add_passenger(passengerSource->get_passengers_at_airport()[input]);
+																cout << "succesfully added passenger "
+																	 << passengerSource->get_passengers_at_airport()[input]->get_name()
+																	 << endl;
+															}
+															else
+															{
+																cout << "***INVALID CHOICE***" << endl;
+															}
+
+														}
+													}
+													else
+													{
+														cout << "THIS PLANE HAS NO LOCATION ASSIGNED" << endl;
+													}
+													
 												}
-												
+												else
+												{
+													cout << HEADER << "There are no passengers to add." << endl;
+												}
 												break;
 											}
 											case 2:
@@ -521,8 +555,6 @@ void create_passengers(Airport* airport, vector<Passenger*>* all_passengers)
 		{
 			newName = rng_name();
 			Passenger * newPassenger = new Passenger(newName);
-			//newPassenger->set_location(airport->get_location());
-			//all_passengers->push_back(newPassenger);
 			airport->add_passenger_to_airport(newPassenger);
 			TOTAL_PASSENGERS++;
 			createdCount++;
