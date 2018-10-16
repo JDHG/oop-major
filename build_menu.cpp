@@ -22,6 +22,15 @@ void build_airport_menu(vector<Airport*> all_airports)
 	}
 	cout << endl << "99  create new airport" << endl << endl;
 }
+void build_airport_passenger_menu(vector<Airport*> all_airports)
+{
+	//dynamic menu. changes size with number of elements
+	cout << endl << MENU_HEADER << "Select Airport: (enter number)" << endl;
+	for (int i = 0; i < all_airports.size(); i++)
+	{
+		cout << i+1 << "   " << all_airports[i]->get_location() << endl;
+	}
+}
 
 void build_airport_sub_menu(Airport* selection)
 {
@@ -113,6 +122,16 @@ void build_add_plane_menu()
 		 << "2    B747" << endl;
 }
 
+void build_add_passenger_menu(vector<Passenger*> all_passengers, int total_passengers)
+{
+	cout << "Select Passenger to add: " << endl;
+	for (int i = 0; i < total_passengers; i++)
+	{
+		cout << i << "   " << all_passengers[i]->get_name()
+			 << " at airport: " << all_passengers[i]->get_location() << endl;
+	}
+}
+
 void build_set_pilot_menu(vector<Pilot*> all_pilots)
 {
 	string availability;
@@ -160,4 +179,25 @@ void build_pilot_sub_menu(Pilot* selection)
 	cout << endl << MENU_HEADER << selection->get_name() << ": (enter number)" << endl;
 	cout << "1   change name" << endl;
 	cout << endl << "99   fire this pilot" << endl << endl;	
+}
+
+
+//passenger menus
+void build_passenger_menu(vector<Passenger*> all_passengers)
+{
+	//dynamic menu. changes size with number of elements
+	cout << endl << MENU_HEADER << "Select Passenger: (enter number)" << endl;
+	for (int i = 0; i < all_passengers.size(); i++)
+	{
+		cout << i+1 << "   " << all_passengers[i]->get_name() << endl;
+	}
+	cout << endl << "99   create passengers" << endl << endl;
+}
+
+void build_passenger_sub_menu(Passenger* selection)
+{
+	cout << endl << MENU_HEADER << selection->get_name() << ": (enter number)" << endl;
+	cout << "1   change name" << endl
+		 << "2   *print details" << endl;
+	cout << endl << "99   eject this passenger" << endl << endl;	
 }

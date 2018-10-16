@@ -2,6 +2,7 @@
 #define PLANE_H
 
 #include "pilot.h"
+#include "passenger.h"
 #include <string>
 #include <vector>
 
@@ -27,8 +28,7 @@ protected:
 
 	Pilot * pilot;
 	Pilot * coPilot;
-	//Staff ** staff;
-	//Passenger ** passengersOnBoard; //make vector
+	std::vector<Passenger*> passengersOnBoard; //maybe just store passenger names and number? this way they can be deleted properly
 
 public:
 	Plane();
@@ -38,6 +38,7 @@ public:
 	virtual void refuel() = 0;
 	virtual void print_details() = 0;
 	virtual std::string get_model() = 0;
+	virtual void add_passenger(Passenger * newPassenger) = 0;
 
 	void set_id(std::string newID);
 	void set_location(std::string newLocation);
@@ -48,6 +49,8 @@ public:
 
 	bool check_id();
 	bool check_location();
+
+	void clear_passengers();
 
 	std::string get_location();
 	std::string get_destination();

@@ -8,7 +8,7 @@ using namespace std;
 A320::A320() : Plane()
 {
 	model = "Airbus 320";
-	seats = 164;
+	seats = 10;
 	fuelCapacity = 27000;
 	fuel = 1000;
 	onBoardWeight = 0; //this number needs to increase and decrease with all persons/luggage changes
@@ -18,7 +18,7 @@ A320::A320() : Plane()
 A320::A320(std::string newLocation, std::string newDestination) : Plane(newLocation, newDestination)
 {
 	model = "Airbus 320";
-	seats = 164;
+	seats = 10;
 	fuelCapacity = 27000;
 	fuel = 1000;
 	onBoardWeight = 0; //this number needs to increase and decrease with all persons/luggage changes
@@ -93,6 +93,18 @@ void A320::print_details()
 		cout
 		<< "Co-Pilot: " << coPilot->get_name() << "  ID number: " << coPilot->get_id_number() << endl;
 	}
+}
+
+void A320::add_passenger(Passenger * newPassenger)
+{
+	if (newPassenger->get_location() == get_location() && totalPassengers < seats)
+	{
+		passengersOnBoard.push_back(newPassenger);
+		totalPassengers++;
+		cout << "Passenger added succesfully." << endl;
+		return;
+	}
+	cout << "* * * FAILED TO ADD PASSENGER * * *" << endl;
 }
 
 bool A320::fuel_check()

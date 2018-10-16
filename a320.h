@@ -6,7 +6,7 @@
 class A320 : public Plane
 {
 	std::string model;
-	//carries up to 162 passengers in 1 class
+	//carries up to 10 passengers
 	int seats;
 
 	int fuelCapacity;
@@ -22,6 +22,7 @@ public:
 	bool can_fly();
 	void refuel();
 	void print_details();
+	void add_passenger(Passenger*);
 
 	bool fuel_check();
 	bool pilot_check();
