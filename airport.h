@@ -4,13 +4,14 @@
 #include <vector>
 #include <string>
 #include "plane.h"
-//change
+#include "passenger.h"
 
 class Airport
 {
 
-	std::string location;
-	std::vector<Plane*> planesOnSite;
+	std::string location;  //Location of Airport
+	std::vector<Plane*> planesOnSite;  //Vector of planes grounded at chosen Airport
+	std::vector<Passenger*> passengerOnSite;  //Vector of Passengers at chosen Airport
 	
 
 public:
@@ -26,6 +27,9 @@ public:
 	bool departure(Plane* depPlane, Airport* destAirport, int input, bool cheat); //removes departing plane from planesOnSite array.
 	void add_plane(Plane* newPlane);
 	void list_planes();
+
+	void add_passenger_to_airport(Passenger* chosenPassenger);
+	void remove_passenger_from_airport(int index);
 
 
 	~Airport();

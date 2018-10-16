@@ -73,7 +73,17 @@ void Airport::add_plane(Plane* newPlane)
 	cout << newPlane->get_id() << " cannot be added. It is somewhere else in the world." << endl;
 }
 
-	
+void Airport::add_passenger_to_airport(Passenger* chosenPassenger)
+{
+	passengerOnSite.push_back(chosenPassenger);
+	chosenPassenger->set_location(location);	
+}
+
+void Airport::remove_passenger_from_airport(int index)
+{
+	passengerOnSite.erase(passengerOnSite.begin() + (index - 1));
+} 
+
 Airport::~Airport()
 {
 

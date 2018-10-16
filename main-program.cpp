@@ -67,6 +67,7 @@ int main ()
 	int storedIndex = 0; //used (if needed) to keep a vector/array index returned by "subChoice = select_option(ALL_OBJECTS, ALL_OBJECTS.size())""
 	int destAirportIndex;
 	int departPlaneIndex;
+
 	Plane * chosenPlane;
 	bool SUCCESSFUL_TRIP = false;
 
@@ -153,6 +154,7 @@ int main ()
 											case 2: //list planes
 											{
 												cout << "*** LIST PLANES AT THIS AIRPORT" << endl;
+												ALL_AIRPORTS[storedIndex]->list_planes();
 												break;
 											}
 										}
@@ -394,7 +396,7 @@ int main ()
 				break;
 			}
 
-			case 7:
+			case 345131:
 			{
 				cout << "ENTERED CHEAT - TESTING ONLY" << endl;
 				CHEAT_ENABLED = !CHEAT_ENABLED;
@@ -417,7 +419,6 @@ void build_home_menu()
 		<< "2   planes" << endl
 		<< "3   pilots" << endl
 		<< "4   passengers" << endl
-		<< "7   ENABLE FLYING CHEAT" << endl //testing only
 		<< "enter " << QUIT_INT << " to quit" << endl;
 }
 
@@ -503,8 +504,9 @@ void create_passengers(Airport* airport, vector<Passenger*>* all_passengers)
 		{
 			newName = rng_name();
 			Passenger * newPassenger = new Passenger(newName);
-			newPassenger->set_location(airport->get_location());
-			all_passengers->push_back(newPassenger);
+			//newPassenger->set_location(airport->get_location());
+			//all_passengers->push_back(newPassenger);
+			airport->add_passenger_to_airport(newPassenger);
 			TOTAL_PASSENGERS++;
 			createdCount++;
 			cout << "Passenger " << newName << " created." << endl;
