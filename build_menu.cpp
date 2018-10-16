@@ -42,6 +42,7 @@ void build_airport_sub_menu(Airport* selection)
 	cout << endl << "99   delete this airport" << endl << endl;
 }
 
+/*
 void build_departure_menu_1(vector<Plane*> planesAtLocation)
 {
 	//dynamic menu. changes size with number of elements
@@ -52,6 +53,7 @@ void build_departure_menu_1(vector<Plane*> planesAtLocation)
 	}
 	cout << endl;
 }
+*/
 void build_departure_menu_2(vector<Airport*> destinationList)
 {
 	cout << endl << MENU_HEADER << "Select Destination: (enter number)" << endl;

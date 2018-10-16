@@ -50,6 +50,7 @@ const int QUIT_INT = -2; //used by home menu to quit program
 const int SPEC_INT = 99;
 const int MAX_PASSENGERS = 50; //there may be no more than this many passengers created
 	  int TOTAL_PASSENGERS = 0;
+	  int TOTAL_PLANES = 0;
 string HEADER = "#####  ";
 
 int main ()
@@ -109,31 +110,46 @@ int main ()
 											case 0: //departure menus
 											{
 												//gets planes at current airport
-												build_departure_menu_1(ALL_AIRPORTS[storedIndex]->get_list_planes());
-												input = select_option(get_sub_input(), ALL_AIRPORTS[storedIndex]->get_list_planes().size()); //input for choosing a plane to depart
+												cout << HEADER << "CHOOSE A PLANE TO DEPART: " << endl;
+												ALL_AIRPORTS[storedIndex]->list_planes(ALL_PLANES);
+												input = select_option(get_sub_input(), TOTAL_PLANES); //input for choosing a plane to depart
 												if (input != BACK_INT && input != FAIL_INT && input != SPEC_INT)
 												{
 													departPlaneIndex = input; //index of which plane is to leave current airport
+																					 // +1 because select_option() returns input-1
+
+													cout << "***DEPART PLANE INDEX: " << departPlaneIndex << endl;
+
 													build_departure_menu_2(ALL_AIRPORTS);
 													input = select_option(get_sub_input(), ALL_AIRPORTS.size());
 													if (input != BACK_INT && input != FAIL_INT && input != SPEC_INT)
 													{
 														destAirportIndex = input;
-														chosenPlane = ALL_AIRPORTS[storedIndex]->get_list_planes()[departPlaneIndex];
+														cout << "***DEST AIRPORT INDEX: " << destAirportIndex << endl;
+														//make sure that plane is at that airport before attempting to fly
+														if (ALL_PLANES[departPlaneIndex]->get_location()
+															==
+															ALL_AIRPORTS[storedIndex]->get_location())
+														{
+															chosenPlane = ALL_PLANES[departPlaneIndex];
+															//departure function call
+															SUCCESSFUL_TRIP = ALL_AIRPORTS[storedIndex]->departure(
+																chosenPlane,
+																ALL_AIRPORTS[destAirportIndex],
+																departPlaneIndex,
+																CHEAT_ENABLED);
 
-														//departure function call
-														SUCCESSFUL_TRIP = ALL_AIRPORTS[storedIndex]->departure(
-															chosenPlane,
-															ALL_AIRPORTS[destAirportIndex],
-															departPlaneIndex,
-															CHEAT_ENABLED);
-
+														}
+														else
+														{
+															cout << "INVALID CHOICE" << endl;
+														}
 													}
 													if(SUCCESSFUL_TRIP)
 													{
-														cout << ALL_AIRPORTS[destAirportIndex]->get_list_planes()[0]->get_id()
+														cout << chosenPlane->get_id()
 															 << " has landed at "
-															 << ALL_AIRPORTS[destAirportIndex]->get_location() << endl;
+															 << chosenPlane->get_location() << endl;
 
 														chosenPlane->clear_passengers();
 														cout << "All passengers have been delivered succesfully" << endl;
@@ -147,14 +163,14 @@ int main ()
 												input = select_option(get_sub_input(), ALL_PLANES.size());
 												if (input != BACK_INT && input != FAIL_INT && input != SPEC_INT)
 												{
-													ALL_AIRPORTS[storedIndex]->add_plane(ALL_PLANES[input]);
+													ALL_PLANES[input]->set_location(ALL_AIRPORTS[storedIndex]->get_location());
 												}
 												break;
 											}
 											case 2: //list planes
 											{
 												cout << "*** LIST PLANES AT THIS AIRPORT" << endl;
-												ALL_AIRPORTS[storedIndex]->list_planes();
+												ALL_AIRPORTS[storedIndex]->list_planes(ALL_PLANES);
 												break;
 											}
 										}
@@ -273,6 +289,7 @@ int main ()
 									case 1:{ALL_PLANES.push_back(new_b747()); break;}
 									default:{cout << "*** ADD PLANE FAILED" << endl;}
 								}
+								TOTAL_PLANES++;
 							}
 						}
 					}
