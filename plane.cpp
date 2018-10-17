@@ -6,8 +6,6 @@
 
 using namespace std;
 
-//class Airport;
-
 //static member declarations
 int Plane::creationID = 0; //number of planes that exist
 int Plane::IDcount = 0; //number of ID's that exist
@@ -23,11 +21,8 @@ Plane::Plane()
 	hasCoPilot = false;
 	hasID = false;
 	hasLocation = false;
-	hasDestination = false;
-
 	planeID = "No ID assigned yet.";
 	location = "No location currently assigned.";
-	destination = "No destination currently assigned";
 }
 
 Plane::Plane(std::string newLocation, std::string newDestination)
@@ -40,11 +35,8 @@ Plane::Plane(std::string newLocation, std::string newDestination)
 	hasCoPilot = false;
 	hasID = false;
 	hasLocation = true;
-	hasDestination = true;
-
 	planeID = "No ID assigned yet.";
 	location = newLocation;
-	destination = newDestination;
 }
 
 void Plane::set_id(string newID) //sets ID only if ID is unique from all previous ID's
@@ -71,6 +63,7 @@ void Plane::set_location(string newLocation)
 void Plane::set_airport_location(Airport * newAirport)
 {
 	airportLocation = newAirport;
+	hasLocation = true;
 }
 
 void Plane::remove_location()
@@ -129,11 +122,6 @@ Airport * Plane::get_airport_location()
 		return airportLocation;
 	}
 	cout << "THIS PLANE HAS NO LOCATION" << endl;
-}
-
-string Plane::get_destination()
-{
-	return destination;
 }
 
 string Plane::get_id()

@@ -34,6 +34,7 @@ public:
 	void add_passenger_to_airport(Passenger* chosenPassenger);
 	void remove_passenger_from_airport(int index);
 
+	void print_passengers();
 
 	~Airport();
 };

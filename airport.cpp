@@ -84,6 +84,21 @@ void Airport::remove_passenger_from_airport(int index)
 	passengerOnSite.erase(passengerOnSite.begin() + (index - 1));
 } 
 
+void Airport::print_passengers()
+{
+	if (totalPassengers > 0)
+	{
+		for (int i = 0; i < totalPassengers; i++)
+		{
+			cout << "passenger #" << i << " "
+				 << passengerOnSite[i]->get_name()
+				 << "    located at: "
+				 << passengerOnSite[i]->get_location()
+				 << endl << endl;
+		}
+	}
+}
+
 Airport::~Airport()
 {
 

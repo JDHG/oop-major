@@ -81,15 +81,13 @@ void build_plane_menu(vector<Plane*> all_planes)
 {
 	//dynamic menu. changes size with number of elements
 	cout << endl << MENU_HEADER << "Select Plane: (enter number)" << endl;
-	cout << "(#)    " << "(MODEL)    " << "(ID)    " << "(LOCN)   " << "(DEST)    " << endl;
+	cout << "(#)    " << "(MODEL)    " << "(ID)    " << "(LOCN)   " << endl;
 	for (int i = 0; i < all_planes.size(); i++)
 	{
 		cout << i+1 << "   " << all_planes[i]->get_model()
 			<< "    " << all_planes[i]->get_id()
 			<< "    " << all_planes[i]->get_location()
-			<< "    " << all_planes[i]->get_destination()
 			<< endl;
-			//sub menu of a plane selected will be: set plane ID, add available passengers, remove passengers, or delete plane
 	}
 	cout << endl << "99   create new plane" << endl << endl;
 }

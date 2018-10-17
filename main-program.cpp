@@ -385,7 +385,7 @@ int main ()
 						storedIndex = subChoice;
 						while (input != BACK_INT)
 						{
-							build_passenger_sub_menu((*ALL_PASSENGERS)[storedIndex]);
+							build_passenger_sub_menu((*ALL_PASSENGERS)[storedIndex]); //NOT WORKING CURRENTLY
 							input = get_sub_input();
 							if (input != BACK_INT && input != FAIL_INT)
 							{
@@ -403,7 +403,10 @@ int main ()
 										}
 										case 1: //print passenger info
 										{
-											//(*ALL_PASSENGERS)[storedIndex]->print_details();
+											for (int i = 0; i < ALL_AIRPORTS.size(); i++) //THIS LOOP SHOULD BE IN PASSENGER SUB MENU
+											{
+												ALL_AIRPORTS[i]->print_passengers();
+											}
 											break;
 										}
 									}
@@ -447,7 +450,7 @@ int main ()
 				break;
 			}
 
-			case 345131:
+			case 345131: //cheat for flying without passing checks
 			{
 				cout << "ENTERED CHEAT - TESTING ONLY" << endl;
 				CHEAT_ENABLED = !CHEAT_ENABLED;
