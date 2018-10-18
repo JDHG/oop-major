@@ -11,6 +11,7 @@ Airport::Airport(string loc)
 {
 	location = loc;
 	totalPassengers = 0;
+	totalPlanes = 0;
 }
 
 	//getters	
@@ -29,6 +30,16 @@ int Airport::get_total_passengers()
 	return totalPassengers;
 }
 
+int Airport::get_total_planes()
+{
+	return totalPlanes;
+}
+
+void Airport::plane_deleted()
+{
+	totalPlanes--;
+}
+
 void Airport::list_planes(vector<Plane*> planesOnSite)
 {
 	cout << "Planes at " << location << " airport: "<< endl;
@@ -36,7 +47,7 @@ void Airport::list_planes(vector<Plane*> planesOnSite)
 	{
 		if (planesOnSite[i]->get_location() == location)
 		{
-			cout << i << "    " << planesOnSite[i]->get_id() << endl;
+			cout << i+1 << "    " << planesOnSite[i]->get_id() << endl;
 		}
 	}
 }
@@ -65,7 +76,7 @@ void Airport::add_plane(Plane* newPlane)
 	if (!newPlane->check_location()) //this check isnt working
 	{
 		newPlane->set_location(location);
-		//need to set current airport for plane too
+		totalPlanes++;
 		cout << newPlane->get_id() << " added succesfully." << endl;
 		return;
 	}

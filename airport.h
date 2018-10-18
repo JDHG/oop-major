@@ -10,10 +10,9 @@ class Airport
 {
 
 	std::string location;  //Location of Airport
-	//std::vector<Plane*> planesOnSite; //Vector of planes grounded at chosen Airport
-	//std::string * planesOnSite;
 	std::vector<Passenger*> passengerOnSite;  //Vector of Passengers at chosen Airport
 	int totalPassengers;
+	int totalPlanes;
 	
 
 public:
@@ -24,7 +23,8 @@ public:
 	std::string get_location();
 	std::vector<Passenger*> get_passengers_at_airport();
 	int get_total_passengers();
-
+	int get_total_planes();
+	void plane_deleted();
 
 
 	bool departure(Plane* depPlane, Airport* destAirport, int input, bool cheat);

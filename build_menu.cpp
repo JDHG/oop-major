@@ -84,7 +84,7 @@ void build_plane_sub_menu(Plane* selection)
 	//if plane doesn't have an ID yet then one must be set
 	while (!selection->check_id())
 	{
-		cout << MENU_HEADER << "Enter a new ID for this plane: ";
+		cout << endl << MENU_HEADER << "Enter a new ID for this plane: ";
 		string newID;
 		cin >> newID;
 		selection->set_id(newID);
@@ -97,14 +97,15 @@ void build_plane_sub_menu(Plane* selection)
 			 << "2   add passengers" << endl
 			 << "3   add pilot" << endl
 			 << "4   add co Pilot" << endl
-			 << "5   refuel" << endl;
+			 << "5   refuel" << endl
+			 << "6   print details" << endl;
 		cout << endl << "99   delete this plane" << endl << endl;
 	}
 }
 
 void build_add_plane_menu()
 {
-	cout << MENU_HEADER << "Choose plane type: " << endl
+	cout << endl << MENU_HEADER << "Choose plane type: " << endl
 		 << "1    A320" << endl
 		 << "2    B747" << endl;
 }
@@ -113,7 +114,7 @@ void build_add_passenger_menu(Airport * airport, int total_passengers)
 {
 	if (total_passengers > 0)
 	{
-		cout << "Select Passenger to add from " << airport->get_location() << endl;
+		cout << endl << "Select Passenger to add from " << airport->get_location() << endl;
 		for (int i = 0; i < total_passengers; i++)
 		{
 			cout << i << "   " << airport->get_passengers_at_airport()[i]->get_name() << endl;
