@@ -60,7 +60,6 @@ int main ()
 	vector<Airport*> ALL_AIRPORTS; //every airport created must be added to this vector
 	vector<Plane*> ALL_PLANES; //every plane created must be added to this vector
 	vector<Pilot*> ALL_PILOTS; //every pilot created must be added to this vector
-	//vector<Passenger*> * ALL_PASSENGERS = new vector<Passenger*>;
 
 	//program loop input variables
 	string strinput; //used for user string input
@@ -74,7 +73,6 @@ int main ()
 	vector<Passenger*>* passengerVec;
 	Plane * chosenPlane;
 	bool SUCCESSFUL_TRIP = false;
-
 	bool CHEAT_ENABLED = false; //used for departure testing (planes can fly without passing checks)
 
 
@@ -184,6 +182,12 @@ int main ()
 									if (subChoice == SPEC_INT) //delete airport
 									{
 										cout << ALL_AIRPORTS[storedIndex]->get_location() << " airport deleted." << endl;
+										
+										for (int i = 0; i < ALL_AIRPORTS[storedIndex]->get_total_passengers(); i++)
+										{
+											delete ALL_AIRPORTS[storedIndex]->get_passengers_at_airport()[i];
+										}
+
 										delete ALL_AIRPORTS[storedIndex];
 										ALL_AIRPORTS.erase(ALL_AIRPORTS.begin() + storedIndex);
 										subChoice = BACK_INT;
