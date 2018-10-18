@@ -90,7 +90,7 @@ void Airport::print_passengers()
 	{
 		for (int i = 0; i < totalPassengers; i++)
 		{
-			cout << "passenger #" << i << " "
+			cout << "passenger #" << i+1 << " "
 				 << passengerOnSite[i]->get_name()
 				 << "    located at: "
 				 << passengerOnSite[i]->get_location()

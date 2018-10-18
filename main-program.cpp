@@ -20,7 +20,8 @@ A320* new_a320();
 B747* new_b747();
 Airport* new_airport();
 Pilot* new_pilot();
-void create_passengers(Airport*,vector<Passenger*>*);
+void create_passengers(Airport*);
+void print_all_passengers(vector<Airport*>);
 
 //externally defined functions
 extern int select_option(int,int);
@@ -59,24 +60,25 @@ int main ()
 	vector<Airport*> ALL_AIRPORTS; //every airport created must be added to this vector
 	vector<Plane*> ALL_PLANES; //every plane created must be added to this vector
 	vector<Pilot*> ALL_PILOTS; //every pilot created must be added to this vector
-	vector<Passenger*> * ALL_PASSENGERS = new vector<Passenger*>;
+	//vector<Passenger*> * ALL_PASSENGERS = new vector<Passenger*>;
 
 	//program loop input variables
 	string strinput; //used for user string input
 	int input = 0; //stores user input throughout menus
 	int subChoice = 0; //used exclusively with select_option() NEVER INDEX WITH THIS! USE storedIndex!
 	int storedIndex = 0; //used (if needed) to keep a vector/array index returned by "subChoice = select_option(ALL_OBJECTS, ALL_OBJECTS.size())""
+	int storedIndex_2 = 0;
 	int destAirportIndex;
 	int departPlaneIndex;
 	Airport * passengerSource; //used for adding passengers from airport to plane
-
+	vector<Passenger*>* passengerVec;
 	Plane * chosenPlane;
 	bool SUCCESSFUL_TRIP = false;
 
 	bool CHEAT_ENABLED = false; //used for departure testing (planes can fly without passing checks)
 
 
-	cout << endl << "*** Welcome to Plane Sim v0.1 ***" << endl << endl;
+	cout << endl << "*** Welcome to Plane Sim v0.9 ***" << endl << endl;
 	//main program loop
 	while (input != QUIT_INT)
 	{
@@ -90,6 +92,7 @@ int main ()
 				while (input != BACK_INT)
 				{
 					build_airport_menu(ALL_AIRPORTS);
+					cout << endl << "99  create new airport" << endl << endl;
 					input = get_sub_input();
 					if (input != BACK_INT && input != FAIL_INT)
 					{
@@ -119,14 +122,14 @@ int main ()
 													departPlaneIndex = input; //index of which plane is to leave current airport
 																					 // +1 because select_option() returns input-1
 
-													cout << "***DEPART PLANE INDEX: " << departPlaneIndex << endl;
+													//cout << "***DEPART PLANE INDEX: " << departPlaneIndex << endl;
 
 													build_departure_menu_2(ALL_AIRPORTS);
 													input = select_option(get_sub_input(), ALL_AIRPORTS.size());
 													if (input != BACK_INT && input != FAIL_INT && input != SPEC_INT)
 													{
 														destAirportIndex = input;
-														cout << "***DEST AIRPORT INDEX: " << destAirportIndex << endl;
+														//cout << "***DEST AIRPORT INDEX: " << destAirportIndex << endl;
 														//make sure that plane is at that airport before attempting to fly
 														if (ALL_PLANES[departPlaneIndex]->get_location()
 															==
@@ -172,7 +175,7 @@ int main ()
 											}
 											case 2: //list planes
 											{
-												cout << "*** LIST PLANES AT THIS AIRPORT" << endl;
+												//cout << "*** LIST PLANES AT THIS AIRPORT" << endl;
 												ALL_AIRPORTS[storedIndex]->list_planes(ALL_PLANES);
 												break;
 											}
@@ -374,79 +377,72 @@ int main ()
 			}
 			case 4: //passenger menu
 			{
-				build_passenger_menu(*ALL_PASSENGERS);
-				input = get_sub_input();
-				if (input != BACK_INT && input != FAIL_INT)
+				if (ALL_AIRPORTS.size() > 0)
 				{
-					subChoice = select_option(input, ALL_PASSENGERS->size());
-					cout << "subChoice = " << subChoice << endl;
-					if (subChoice >= 0 && subChoice < SPEC_INT) //chosen passenger options menu
+					build_airport_menu(ALL_AIRPORTS); //must choose an airport first as they store passengers
+					input = get_sub_input();
+					if (input != BACK_INT && input != FAIL_INT && input != SPEC_INT)
 					{
-						storedIndex = subChoice;
-						while (input != BACK_INT)
+						subChoice = select_option(input, ALL_AIRPORTS.size());
+						if (subChoice >= 0 && subChoice <= ALL_AIRPORTS.size())
 						{
-							build_passenger_sub_menu((*ALL_PASSENGERS)[storedIndex]); //NOT WORKING CURRENTLY
+							storedIndex = subChoice;
+							cout << "STORED INDEX" << storedIndex << endl;
+							passengerSource = ALL_AIRPORTS[storedIndex]; //get chosen airport
+							build_passenger_menu(passengerSource->get_passengers_at_airport());
 							input = get_sub_input();
-							if (input != BACK_INT && input != FAIL_INT)
+
+							if (input != BACK_INT && input != FAIL_INT && input != SPEC_INT) //choose a passenger if available
 							{
-								subChoice = select_option(input, 2); //2 options in passenger_sub_menu
-								if (subChoice >= 0 && subChoice < SPEC_INT)
+								subChoice = select_option(input, passengerSource->get_passengers_at_airport().size());
+								if (subChoice >= 0 && subChoice <= passengerSource->get_passengers_at_airport().size())
 								{
-									switch (subChoice)
+									storedIndex_2 = subChoice;
+									build_passenger_sub_menu(passengerSource->get_passengers_at_airport()[storedIndex_2]);
+									input = get_sub_input();
+									if (input != BACK_INT && input != FAIL_INT && input != SPEC_INT)
 									{
-										case 0: //set name
+										subChoice = select_option(input, 2); //2 options in passenger sub menu
+										switch (subChoice)
 										{
-											cout << HEADER << "Enter new name: " << endl;
-											cin >> strinput;
-											(*ALL_PASSENGERS)[storedIndex]->set_name(strinput);
-											break;
-										}
-										case 1: //print passenger info
-										{
-											for (int i = 0; i < ALL_AIRPORTS.size(); i++) //THIS LOOP SHOULD BE IN PASSENGER SUB MENU
+											case 0: //change name
 											{
-												ALL_AIRPORTS[i]->print_passengers();
+												cout << HEADER << "Enter new name: " << endl;
+												cin >> strinput;
+												passengerSource->get_passengers_at_airport()[storedIndex_2]->set_name(strinput);
+												cout << "NAME CHANGED" << endl;
+												break;
 											}
-											break;
+
+											case 1: //print details
+											{
+												cout << "PRINT" << endl;
+												break;
+											}
 										}
 									}
+									if (input == SPEC_INT) //delete passengers
+									{
+								
+										subChoice = BACK_INT;
+										input = BACK_INT;
+									}
 								}
-								if (subChoice == SPEC_INT)
-								{
-									cout << (*ALL_PASSENGERS)[storedIndex]->get_name() << " has been ejected." << endl;
-									delete (*ALL_PASSENGERS)[storedIndex];
-									ALL_PASSENGERS->erase(ALL_PASSENGERS->begin() + storedIndex);
-									TOTAL_PASSENGERS--;
-									subChoice = BACK_INT;
-									input = BACK_INT;
-								}
+							}
+
+							if (input == SPEC_INT) //create passengers
+							{
+								create_passengers(passengerSource);
 							}
 						}
 					}
-					if (subChoice == SPEC_INT) //create passengers
-					{
-						cout << endl;
-						while (input != BACK_INT)
-						{
-							if (ALL_AIRPORTS.size() == 0)
-							{
-								cout << HEADER << "You must create an airport before creating passengers." << endl;
-							}
-							if (ALL_AIRPORTS.size() != 0)
-							{
-								cout << HEADER << "Select Airport to create passengers at: " << endl;
-								build_airport_passenger_menu(ALL_AIRPORTS);
-								input = select_option(get_sub_input(), ALL_AIRPORTS.size());
-								if (input != BACK_INT && input != FAIL_INT && input != SPEC_INT)
-								{
-									storedIndex = input;
-									create_passengers(ALL_AIRPORTS[storedIndex], ALL_PASSENGERS);
-								}
-							}
-							input = BACK_INT;
-						}
-					}	
+
 				}
+				if (ALL_AIRPORTS.size() <= 0)
+				{
+					cout << HEADER << "NO AIRPORT AVAILABLE FOR PASSENGER CREATION" << endl;
+				}
+
 				break;
 			}
 
@@ -534,7 +530,7 @@ Pilot* new_pilot()
 	Pilot * newPilot = new Pilot(newName);
 	return newPilot;
 }
-void create_passengers(Airport* airport, vector<Passenger*>* all_passengers)
+void create_passengers(Airport* airport)
 {
 	int nPassengers;
 	int createdCount = 0;
@@ -570,4 +566,12 @@ void create_passengers(Airport* airport, vector<Passenger*>* all_passengers)
 	}
 	cout << createdCount << " passengers created succesfully at " << airport->get_location() << " airport." << endl;
 	cout << "Total passengers in the world: " << TOTAL_PASSENGERS << "/" << MAX_PASSENGERS << endl;
+}
+
+void print_all_passengers(vector<Airport*> all_airports)
+{
+	for (int i = 0; i < all_airports.size(); i++)
+	{
+		all_airports[i]->print_passengers();
+	}
 }

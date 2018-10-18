@@ -20,7 +20,6 @@ void build_airport_menu(vector<Airport*> all_airports)
 	{
 		cout << i+1 << "   " << all_airports[i]->get_location() << endl;
 	}
-	cout << endl << "99  create new airport" << endl << endl;
 }
 void build_airport_passenger_menu(vector<Airport*> all_airports)
 {
@@ -38,22 +37,10 @@ void build_airport_sub_menu(Airport* selection)
 	cout << endl << MENU_HEADER << selection->get_location() << ": (enter number)" << endl;
 	cout << "1   depart plane" << endl
 		 << "2   add new plane" << endl
-		 << "3   *list planes" << endl;
+		 << "3   list planes" << endl;
 	cout << endl << "99   delete this airport" << endl << endl;
 }
 
-/*
-void build_departure_menu_1(vector<Plane*> planesAtLocation)
-{
-	//dynamic menu. changes size with number of elements
-	cout << endl<< MENU_HEADER << "Select Plane to depart: (enter number)" << endl;
-	for (int i = 0; i < planesAtLocation.size(); i++)
-	{
-		cout << i+1 << "    " << planesAtLocation[i]->get_id() << endl;
-	}
-	cout << endl;
-}
-*/
 void build_departure_menu_2(vector<Airport*> destinationList)
 {
 	cout << endl << MENU_HEADER << "Select Destination: (enter number)" << endl;
@@ -107,7 +94,7 @@ void build_plane_sub_menu(Plane* selection)
 	{
 		cout << endl << MENU_HEADER << selection->get_id() << ": (enter number)" << endl;
 		cout << "1   change ID" << endl
-			 << "2   *add passengers" << endl
+			 << "2   add passengers" << endl
 			 << "3   add pilot" << endl
 			 << "4   add co Pilot" << endl
 			 << "5   refuel" << endl;
@@ -186,13 +173,14 @@ void build_pilot_sub_menu(Pilot* selection)
 
 
 //passenger menus
-void build_passenger_menu(vector<Passenger*> all_passengers)
+void build_passenger_menu(vector<Passenger*> airportPass)
 {
 	//dynamic menu. changes size with number of elements
 	cout << endl << MENU_HEADER << "Select Passenger: (enter number)" << endl;
-	for (int i = 0; i < all_passengers.size(); i++)
+	for (int i = 0; i < airportPass.size(); i++)
 	{
-		cout << i+1 << "   " << all_passengers[i]->get_name() << endl;
+		cout << i+1 << "    " << airportPass[i]->get_name()
+			 << endl;
 	}
 	cout << endl << "99   create passengers" << endl << endl;
 }
