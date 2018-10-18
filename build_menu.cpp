@@ -117,7 +117,6 @@ void build_add_passenger_menu(Airport * airport, int total_passengers)
 		for (int i = 0; i < total_passengers; i++)
 		{
 			cout << i << "   " << airport->get_passengers_at_airport()[i]->get_name() << endl;
-				 //<< " at airport: " << airport->get_passengers_at_airport()[i]->get_location() << endl;
 		}
 	}
 }
@@ -190,5 +189,5 @@ void build_passenger_sub_menu(Passenger* selection)
 	cout << endl << MENU_HEADER << selection->get_name() << ": (enter number)" << endl;
 	cout << "1   change name" << endl
 		 << "2   *print details" << endl;
-	cout << endl << "99   eject this passenger" << endl << endl;	
+	//cout << endl << "99   eject this passenger" << endl << endl;	
 }

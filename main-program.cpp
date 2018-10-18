@@ -28,7 +28,6 @@ extern int select_option(int,int);
 extern void build_airport_menu(vector<Airport*>);
 extern void build_airport_passenger_menu(vector<Airport*>);
 extern void build_airport_sub_menu(Airport*);
-//extern void build_departure_menu_1(vector<Plane*>);
 extern void build_departure_menu_2(vector<Airport*>);
 extern void build_add_plane_to_airport_menu(vector<Plane*>);
 extern void build_plane_menu(vector<Plane*>);
@@ -235,7 +234,6 @@ int main ()
 											case 1:
 											{
 												//add passengers
-												cout << "*** CANT ADD PASSENGERS YET" << endl;
 												if (TOTAL_PASSENGERS != 0)
 												{
 													if(ALL_PLANES[storedIndex]->check_location())
@@ -244,14 +242,12 @@ int main ()
 														cout << "airport locale: " << passengerSource->get_location() << endl;
 
 														build_add_passenger_menu(passengerSource, passengerSource->get_total_passengers());
-														//input = select_option(get_sub_input(), passengerSource->get_total_passengers());
 														input = get_sub_input();
 
 														if (input != BACK_INT && input != FAIL_INT && input != SPEC_INT)
 														{
 															if (input <= passengerSource->get_total_passengers() && input >= 0)
 															{
-																cout << "PASSENGER INDEX: " << input << endl;
 																ALL_PLANES[storedIndex]->add_passenger(passengerSource->get_passengers_at_airport()[input]);
 																cout << "succesfully added passenger "
 																	 << passengerSource->get_passengers_at_airport()[input]->get_name()
@@ -259,20 +255,20 @@ int main ()
 															}
 															else
 															{
-																cout << "***INVALID CHOICE***" << endl;
+																cout << "* * * INVALID CHOICE* * *" << endl;
 															}
 
 														}
 													}
 													else
 													{
-														cout << "THIS PLANE HAS NO LOCATION ASSIGNED" << endl;
+														cout << "* * * THIS PLANE HAS NO LOCATION ASSIGNED * * *" << endl;
 													}
 													
 												}
 												else
 												{
-													cout << HEADER << "There are no passengers to add." << endl;
+													cout << HEADER << "* * * THERE ARE NO PASSENGERS TO ADD * * *" << endl;
 												}
 												break;
 											}
@@ -328,7 +324,7 @@ int main ()
 								{
 									case 0:{ALL_PLANES.push_back(new_a320()); break;}
 									case 1:{ALL_PLANES.push_back(new_b747()); break;}
-									default:{cout << "*** ADD PLANE FAILED" << endl;}
+									default:{cout << "* * * ADD PLANE FAILED * * *" << endl;}
 								}
 								TOTAL_PLANES++;
 							}
@@ -414,23 +410,38 @@ int main ()
 												cout << HEADER << "Enter new name: " << endl;
 												cin >> strinput;
 												passengerSource->get_passengers_at_airport()[storedIndex_2]->set_name(strinput);
-												cout << "NAME CHANGED" << endl;
+												cout << HEADER << "NAME CHANGED" << endl;
 												break;
 											}
 
 											case 1: //print details
 											{
 												cout << "PRINT" << endl;
+
 												break;
 											}
 										}
 									}
-									if (input == SPEC_INT) //delete passengers
+									if (input == SPEC_INT)
 									{
-								
 										subChoice = BACK_INT;
 										input = BACK_INT;
 									}
+
+									//currently can't delete passengers
+									/*
+									if (input == SPEC_INT) //delete passengers
+									{
+										cout << "DELETE PASSENGER OBJECT" << endl;
+										delete passengerSource->get_passengers_at_airport()[storedIndex_2];
+
+										cout << "VECTOR ERASE at " << storedIndex_2 << endl;
+										passengerSource->get_passengers_at_airport().erase(passengerSource->get_passengers_at_airport().begin() + storedIndex_2);
+
+										subChoice = BACK_INT;
+										input = BACK_INT;
+									}
+									*/
 								}
 							}
 
@@ -444,7 +455,7 @@ int main ()
 				}
 				if (ALL_AIRPORTS.size() <= 0)
 				{
-					cout << HEADER << "NO AIRPORT AVAILABLE FOR PASSENGER CREATION" << endl;
+					cout << HEADER << "* * * NO AIRPORT AVAILABLE FOR PASSENGER CREATION * * *" << endl;
 				}
 
 				break;
@@ -452,14 +463,14 @@ int main ()
 
 			case 345131: //cheat for flying without passing checks
 			{
-				cout << "ENTERED CHEAT - TESTING ONLY" << endl;
+				cout << "* * * ENTERED CHEAT - TESTING ONLY * * *" << endl;
 				CHEAT_ENABLED = !CHEAT_ENABLED;
 				cout << "cheat active: " << CHEAT_ENABLED << endl;
 				break;
 			}
 			
 			//default: {cout << "***invalid input***" << endl; break;}
-			case -2: {cout << "QUIT PROGRAM" << endl; break;}
+			case -2: {cout << "* * * QUIT PROGRAM * * *" << endl; break;}
 		}
 	}
 	return 0;

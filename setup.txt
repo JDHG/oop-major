@@ -39,8 +39,8 @@ echo ##### REFUEL #####
 -9
 echo ##### CREATE PASSENGERS
 4
-99
 1
+99
 10
 echo ##### ADD PLANE-1 TO AIRPORT-1 #####
 1
