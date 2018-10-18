@@ -1,18 +1,17 @@
 #include <string>
 #include <iostream>
 #include <vector>
-#include <algorithm>
 #include "plane.h"
 #include "airport.h"
 
 using namespace std;
 
 
-//another test edit
-
 Airport::Airport(string loc)
 {
 	location = loc;
+	totalPassengers = 0;
+	totalPlanes = 0;
 }
 
 	//getters	
@@ -21,16 +20,35 @@ string Airport::get_location()
 	return location;
 }
 
-vector<Plane*> Airport::get_list_planes()
+vector<Passenger*> Airport::get_passengers_at_airport()
 {
-	return planesOnSite;
+	return passengerOnSite;
 }
 
-void Airport::list_planes()
+int Airport::get_total_passengers()
 {
-	cout << location << endl;
-	for (int i = 0; i < planesOnSite.size(); i++){
-		cout << planesOnSite[i]->get_id() << endl;
+	return totalPassengers;
+}
+
+int Airport::get_total_planes()
+{
+	return totalPlanes;
+}
+
+void Airport::plane_deleted()
+{
+	totalPlanes--;
+}
+
+void Airport::list_planes(vector<Plane*> planesOnSite)
+{
+	cout << "Planes at " << location << " airport: "<< endl;
+	for (int i = 0; i < planesOnSite.size(); i++)
+	{
+		if (planesOnSite[i]->get_location() == location)
+		{
+			cout << i+1 << "    " << planesOnSite[i]->get_id() << endl;
+		}
 	}
 }
 
@@ -44,28 +62,21 @@ bool Airport::departure(Plane* depPlane, Airport* destAirport, int input, bool C
 			cout << "* * * CHEAT ACTIVE. PLANES CAN ALWAYS FLY * * *" << endl;
 		}
 
-		destAirport->planesOnSite.push_back(depPlane); //copies plane into destination vector
-
-		//moves plane to end of airport's vector and pops it off.
-		if (planesOnSite.size() > 1)
-		{
-			iter_swap(planesOnSite.begin() + (input - 1), planesOnSite.end());
-		}
-		planesOnSite.pop_back();
-
 		depPlane->set_location(destAirport->get_location());
+		depPlane->set_airport_location(destAirport);
+
 		return true;
 	}
 	cout << "Plane unable to depart." << endl;
 	return false;
-} 
+}
 
 void Airport::add_plane(Plane* newPlane)
 {
-	if (!newPlane->check_location())
+	if (!newPlane->check_location()) //this check isnt working
 	{
-		planesOnSite.push_back(newPlane);
 		newPlane->set_location(location);
+		totalPlanes++;
 		cout << newPlane->get_id() << " added succesfully." << endl;
 		return;
 	}
@@ -75,7 +86,8 @@ void Airport::add_plane(Plane* newPlane)
 void Airport::add_passenger_to_airport(Passenger* chosenPassenger)
 {
 	passengerOnSite.push_back(chosenPassenger);
-	chosenPassenger->set_location(location);	
+	chosenPassenger->set_location(location);
+	totalPassengers++;
 }
 
 void Airport::remove_passenger_from_airport(int index)
@@ -83,8 +95,22 @@ void Airport::remove_passenger_from_airport(int index)
 	passengerOnSite.erase(passengerOnSite.begin() + (index - 1));
 } 
 
-Airport::~Airport()
+void Airport::print_passengers()
 {
-
+	if (totalPassengers > 0)
+	{
+		for (int i = 0; i < totalPassengers; i++)
+		{
+			cout << "passenger #" << i+1 << " "
+				 << passengerOnSite[i]->get_name()
+				 << "    located at: "
+				 << passengerOnSite[i]->get_location()
+				 << endl << endl;
+		}
+	}
 }
 
+Airport::~Airport()
+{
+	
+}

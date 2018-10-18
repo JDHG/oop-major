@@ -20,7 +20,6 @@ void build_airport_menu(vector<Airport*> all_airports)
 	{
 		cout << i+1 << "   " << all_airports[i]->get_location() << endl;
 	}
-	cout << endl << "99  create new airport" << endl << endl;
 }
 void build_airport_passenger_menu(vector<Airport*> all_airports)
 {
@@ -38,20 +37,10 @@ void build_airport_sub_menu(Airport* selection)
 	cout << endl << MENU_HEADER << selection->get_location() << ": (enter number)" << endl;
 	cout << "1   depart plane" << endl
 		 << "2   add new plane" << endl
-		 << "3   *list planes" << endl;
+		 << "3   list planes" << endl;
 	cout << endl << "99   delete this airport" << endl << endl;
 }
 
-void build_departure_menu_1(vector<Plane*> planesAtLocation)
-{
-	//dynamic menu. changes size with number of elements
-	cout << endl<< MENU_HEADER << "Select Plane to depart: (enter number)" << endl;
-	for (int i = 0; i < planesAtLocation.size(); i++)
-	{
-		cout << i+1 << "    " << planesAtLocation[i]->get_id() << endl;
-	}
-	cout << endl;
-}
 void build_departure_menu_2(vector<Airport*> destinationList)
 {
 	cout << endl << MENU_HEADER << "Select Destination: (enter number)" << endl;
@@ -79,15 +68,13 @@ void build_plane_menu(vector<Plane*> all_planes)
 {
 	//dynamic menu. changes size with number of elements
 	cout << endl << MENU_HEADER << "Select Plane: (enter number)" << endl;
-	cout << "(#)    " << "(MODEL)    " << "(ID)    " << "(LOCN)   " << "(DEST)    " << endl;
+	cout << "(#)    " << "(MODEL)    " << "(ID)    " << "(LOCN)   " << endl;
 	for (int i = 0; i < all_planes.size(); i++)
 	{
 		cout << i+1 << "   " << all_planes[i]->get_model()
 			<< "    " << all_planes[i]->get_id()
 			<< "    " << all_planes[i]->get_location()
-			<< "    " << all_planes[i]->get_destination()
 			<< endl;
-			//sub menu of a plane selected will be: set plane ID, add available passengers, remove passengers, or delete plane
 	}
 	cout << endl << "99   create new plane" << endl << endl;
 }
@@ -97,7 +84,7 @@ void build_plane_sub_menu(Plane* selection)
 	//if plane doesn't have an ID yet then one must be set
 	while (!selection->check_id())
 	{
-		cout << MENU_HEADER << "Enter a new ID for this plane: ";
+		cout << endl << MENU_HEADER << "Enter a new ID for this plane: ";
 		string newID;
 		cin >> newID;
 		selection->set_id(newID);
@@ -107,28 +94,31 @@ void build_plane_sub_menu(Plane* selection)
 	{
 		cout << endl << MENU_HEADER << selection->get_id() << ": (enter number)" << endl;
 		cout << "1   change ID" << endl
-			 << "2   *add passengers" << endl
+			 << "2   add passengers" << endl
 			 << "3   add pilot" << endl
 			 << "4   add co Pilot" << endl
-			 << "5   refuel" << endl;
+			 << "5   refuel" << endl
+			 << "6   print details" << endl;
 		cout << endl << "99   delete this plane" << endl << endl;
 	}
 }
 
 void build_add_plane_menu()
 {
-	cout << MENU_HEADER << "Choose plane type: " << endl
+	cout << endl << MENU_HEADER << "Choose plane type: " << endl
 		 << "1    A320" << endl
 		 << "2    B747" << endl;
 }
 
-void build_add_passenger_menu(vector<Passenger*> all_passengers, int total_passengers)
+void build_add_passenger_menu(Airport * airport, int total_passengers)
 {
-	cout << "Select Passenger to add: " << endl;
-	for (int i = 0; i < total_passengers; i++)
+	if (total_passengers > 0)
 	{
-		cout << i << "   " << all_passengers[i]->get_name()
-			 << " at airport: " << all_passengers[i]->get_location() << endl;
+		cout << endl << "Select Passenger to add from " << airport->get_location() << endl;
+		for (int i = 0; i < total_passengers; i++)
+		{
+			cout << i << "   " << airport->get_passengers_at_airport()[i]->get_name() << endl;
+		}
 	}
 }
 
@@ -183,13 +173,14 @@ void build_pilot_sub_menu(Pilot* selection)
 
 
 //passenger menus
-void build_passenger_menu(vector<Passenger*> all_passengers)
+void build_passenger_menu(vector<Passenger*> airportPass)
 {
 	//dynamic menu. changes size with number of elements
 	cout << endl << MENU_HEADER << "Select Passenger: (enter number)" << endl;
-	for (int i = 0; i < all_passengers.size(); i++)
+	for (int i = 0; i < airportPass.size(); i++)
 	{
-		cout << i+1 << "   " << all_passengers[i]->get_name() << endl;
+		cout << i+1 << "    " << airportPass[i]->get_name()
+			 << endl;
 	}
 	cout << endl << "99   create passengers" << endl << endl;
 }
@@ -199,5 +190,5 @@ void build_passenger_sub_menu(Passenger* selection)
 	cout << endl << MENU_HEADER << selection->get_name() << ": (enter number)" << endl;
 	cout << "1   change name" << endl
 		 << "2   *print details" << endl;
-	cout << endl << "99   eject this passenger" << endl << endl;	
+	//cout << endl << "99   eject this passenger" << endl << endl;	
 }

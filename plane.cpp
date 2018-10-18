@@ -1,6 +1,5 @@
 #include "plane.h"
 #include "pilot.h"
-
 #include <string>
 #include <iostream>
 #include <vector>
@@ -22,11 +21,8 @@ Plane::Plane()
 	hasCoPilot = false;
 	hasID = false;
 	hasLocation = false;
-	hasDestination = false;
-
-	planeID = "No ID assigned yet.";
-	location = "No location currently assigned.";
-	destination = "No destination currently assigned";
+	planeID = "no ID";
+	location = "none";
 }
 
 Plane::Plane(std::string newLocation, std::string newDestination)
@@ -39,11 +35,8 @@ Plane::Plane(std::string newLocation, std::string newDestination)
 	hasCoPilot = false;
 	hasID = false;
 	hasLocation = true;
-	hasDestination = true;
-
-	planeID = "No ID assigned yet.";
+	planeID = "no ID";
 	location = newLocation;
-	destination = newDestination;
 }
 
 void Plane::set_id(string newID) //sets ID only if ID is unique from all previous ID's
@@ -52,7 +45,7 @@ void Plane::set_id(string newID) //sets ID only if ID is unique from all previou
 	{	
 		if (newID == takenIDs[i])
 		{
-			cout << "This ID is taken. You must enter a unique ID." << endl;
+			cout << "* * * This ID is taken. You must enter a unique ID * * *" << endl;
 			return;
 		}
 	}
@@ -60,12 +53,16 @@ void Plane::set_id(string newID) //sets ID only if ID is unique from all previou
 	IDcount++;
 	planeID = newID;
 	hasID = true;
-	//cout << "test setID - has executed." << endl;
 }
 
 void Plane::set_location(string newLocation)
 {
 	location = newLocation;
+	hasLocation = true;
+}
+void Plane::set_airport_location(Airport * newAirport)
+{
+	airportLocation = newAirport;
 	hasLocation = true;
 }
 
@@ -83,7 +80,7 @@ void Plane::set_pilot(Pilot * newPilot) //pilot objects must have a bool to noti
 		newPilot->set_assigned_plane();
 		return;
 	}
-	cout << "FAILED. Pilot not assigned" << endl;
+	cout << "* * * FAILED. Pilot not assigned * * *" << endl;
 }
 
 void Plane::set_copilot(Pilot * newCoPilot) //pilot objects must have a bool to notify if they are available for assignment
@@ -95,7 +92,7 @@ void Plane::set_copilot(Pilot * newCoPilot) //pilot objects must have a bool to 
 		newCoPilot->set_assigned_plane();
 		return;
 	}
-	cout << "FAILED. Co-Pilot not assigned" << endl;
+	cout << "* * * FAILED. Co-Pilot not assigned * * *" << endl;
 }
 
 bool Plane::check_id()
@@ -111,22 +108,31 @@ void Plane::clear_passengers()
 {
 	passengersOnBoard.clear();
 	//passengersOnBoard.shrink_to_fit();
-	cout << "size: " << passengersOnBoard.size() << endl;
+	//cout << "size: " << passengersOnBoard.size() << endl;
 }
 
 string Plane::get_location()
 {
 	return location;
 }
-
-string Plane::get_destination()
+Airport * Plane::get_airport_location()
 {
-	return destination;
+	if(hasLocation)
+	{
+		cout << "ATTEMPT RETURN" << endl;
+		return airportLocation;
+	}
+	cout << "* * * THIS PLANE HAS NO LOCATION * * *" << endl;
 }
 
 string Plane::get_id()
 {
 	return planeID;
+}
+
+std::vector<Passenger*> Plane::get_passengers_on_board()
+{
+	return passengersOnBoard;
 }
 
 Plane::~Plane()

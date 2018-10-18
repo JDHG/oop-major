@@ -6,6 +6,8 @@
 #include <string>
 #include <vector>
 
+class Airport;
+
 class Plane
 {
 	static int creationID; //keeps track of how many planes have been created
@@ -16,18 +18,17 @@ protected:
 	bool hasPilot;
 	bool hasCoPilot;
 	bool hasID;
-	bool hasLocation; //check these two in can_fly() ?
-	bool hasDestination;
+	bool hasLocation;
 
 	int totalPassengers;
 	int planeNumber;
 
 	std::string planeID; //planeID is different from creation ID
 	std::string location;
-	std::string destination;
 
 	Pilot * pilot;
 	Pilot * coPilot;
+	Airport * airportLocation;
 	std::vector<Passenger*> passengersOnBoard; //maybe just store passenger names and number? this way they can be deleted properly
 
 public:
@@ -42,7 +43,7 @@ public:
 
 	void set_id(std::string newID);
 	void set_location(std::string newLocation);
-	void set_destination(std::string newDestination);
+	void set_airport_location(Airport * newAirport);
 	void remove_location();
 	void set_pilot(Pilot * newPilot);
 	void set_copilot(Pilot * newCoPilot);
@@ -53,8 +54,9 @@ public:
 	void clear_passengers();
 
 	std::string get_location();
-	std::string get_destination();
+	Airport * get_airport_location();
 	std::string get_id();
+	std::vector<Passenger*> get_passengers_on_board();
 
 	~Plane();
 };

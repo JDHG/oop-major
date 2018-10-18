@@ -81,17 +81,24 @@ void A320::print_details()
 	cout << "Details of Plane ID: " << get_id() << endl
 		<< "Model: " << model << endl
 		<< "Passengers on-board: " << "-/" << seats << endl //update when passengers can be added
-		<< "Fuel: " << fuel << "/" << fuelCapacity << " Litres" << endl
-		<< "Allowable on-board weight: " << onBoardWeight << "/" << maxPayload << endl;
+		<< "Fuel: " << fuel << "/" << fuelCapacity << " Litres" << endl;
+		//<< "Allowable on-board weight: " << onBoardWeight << "/" << maxPayload << endl;
 	if(hasPilot)
 	{
-		cout 
-		<< "Pilot: " << pilot->get_name() << "  ID number: " << pilot->get_id_number() << endl;
+		cout << "Pilot: " << pilot->get_name() << "  ID number: " << pilot->get_id_number() << endl;
 	}
+	if(!hasPilot)
+	{
+		cout << "Pilot: NONE" << endl;
+	}
+
 	if(hasCoPilot)
 	{
-		cout
-		<< "Co-Pilot: " << coPilot->get_name() << "  ID number: " << coPilot->get_id_number() << endl;
+		cout << "Co-Pilot: " << coPilot->get_name() << "  ID number: " << coPilot->get_id_number() << endl;
+	}
+	if(!hasCoPilot)
+	{
+		cout << "Co-Pilot: NONE" << endl;
 	}
 }
 
